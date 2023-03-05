@@ -62,6 +62,8 @@ class GameController:
                 self.game_model.set_block(node)
                 self.game_view.draw_block()
                 pygame.display.update()
+
+                pygame.time.delay(50)
             
         return ia_solver_run
             
