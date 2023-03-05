@@ -49,4 +49,6 @@ class BlockState:
 		b = self.maze[self.x2 + self.y2 * MATRIX_COL] not in INVALID_NODES
 		return a and b
 	
+	def checkIfGoal(self): # and ou or ????
+		return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
 		

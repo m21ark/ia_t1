@@ -31,8 +31,14 @@ class GameController:
                         self.game_model.set_block(new_block)
                         print(self.game_model.get_block.x, self.game_model.get_block.y, self.game_model.get_block.x2, self.game_model.get_block.y2)
                     else:
-                        running = False # add menu for game lost
-          
+                        running = False # add menu for game finish and pass the  new_block to know the end state
+                        self.game_view.game_over(new_block)
+
+
+                    if new_block != None and new_block.checkIfGoal():
+                        running = False # add menu for game finish and pass the new_block
+                        self.game_view.game_over(new_block)
+
                     pygame.display.update()
             
             clock.tick(10)

@@ -1,6 +1,7 @@
 from view.view_const import *
 from model.sample_mazes import *
 import pygame
+import pygame_menu
 
 class GameView:
     def __init__(self, surface, model):
@@ -39,3 +40,39 @@ class GameView:
         else:
             pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE, self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
             pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE, self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+    def game_over(self, new_block):
+        menu = pygame_menu.Menu(
+            height=WINDOW_SIZE[1],
+            width=WINDOW_SIZE[0],
+            title='Game Over',
+            theme=pygame_menu.themes.THEME_DARK
+        )
+
+        run = True
+        def print_r():
+            print(run)
+
+        b = menu.add.button('GAME OVER', print_r)
+        if new_block != None and new_block.checkIfGoal():
+            a = menu.add.button('You Win!!', print_r)
+        else:
+            a = menu.add.button('You Lost!!', print_r) # adicionar o fallen se interesar
+
+        
+        while run:
+
+            events = pygame.event.get()
+            for event in events:
+                if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
+                    run = False
+
+            if a.is_selected():
+                run = False
+        
+            menu.update(events)
+            menu.draw(self.surface)
+            pygame.display.update()
+        
+
+
