@@ -34,4 +34,8 @@ class GameView:
                 pygame.draw.rect(self.surface, GameView.get_color(self.model.get_maze, x, y), (x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
     def draw_block(self):
-        pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE, self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+        if self.model.get_block.isStanding():
+            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE, self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+        else:
+            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE, self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE, self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))

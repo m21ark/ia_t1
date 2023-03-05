@@ -25,26 +25,17 @@ class GameController:
 
             for key, func in keys:
                 if pygame.key.get_pressed()[key]:
-                    
+ 
                     new_block = func(self.game_model.get_block)
                     if (new_block):
                         self.game_model.set_block(new_block)
-                        print(self.game_model.get_block.x, self.game_model.get_block.y)
+                        print(self.game_model.get_block.x, self.game_model.get_block.y, self.game_model.get_block.x2, self.game_model.get_block.y2)
                     else:
-                        running = False
-                        # game is lost
-                        
-
-                    #self.game_model.get_block.move(key)
-                    #self.game_view.draw_maze()
+                        running = False # add menu for game lost
+          
                     pygame.display.update()
             
             clock.tick(10)
 
 
-    #def update(self):
-        #self.game_model.update()
-        #self.game_view.update()
-
-    #def end(self):
-    #    self.game_view.end()
+    

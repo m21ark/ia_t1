@@ -203,11 +203,11 @@ def moveUp(self):
         if (self.isYtopX()):
             x = self.x2
             y2 -= 1
-            y = self.y2
+            y = y2
         elif (self.isXtopY()):
             x2 = self.x
             y -= 1
-            y2 = self.y
+            y2 = y
         else:  # X and Y are on the same row
             y -= 1
             y2 -= 1
@@ -227,11 +227,11 @@ def moveDown(self):
         if (self.isXtopY()):
             x = self.x2
             y2 += 1
-            y = self.y2
+            y = y2
         elif (self.isYtopX()):
             x2 = self.x
             y += 1
-            y2 = self.y
+            y2 = y
         else:  # X and Y are on the same row
             y += 1
             y2 += 1
@@ -243,20 +243,24 @@ def moveDown(self):
 
 def moveLeft(self):
     # save current position
+    print("move left")
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
         x2 -= 1
         x -= 2
     else:   
         if (self.isXrightY()):
+            print("x right y")
             y = self.y2
             x2 -= 1
-            x = self.x2
+            x = x2
         elif (self.isYrightX()):
+            print("y right x")
             y2 = self.y
             x -= 1
-            x2 = self.x
+            x2 = x
         else:  # X and Y are on the same col
+            print("same col")
             x -= 1
             x2 -= 1
     # check if new position is valid.
@@ -275,11 +279,11 @@ def moveRight(self):
         if (self.isYrightX()):
             y = self.y2
             x2 += 1
-            x = self.x2
+            x = x2
         elif (self.isXrightY()):
             y2 = self.y
             x += 1
-            x2 = self.x
+            x2 = x
         else:  # X and Y are on the same col
             x += 1
             x2 += 1
