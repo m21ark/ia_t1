@@ -20,8 +20,6 @@ class MainMenu:
     @property
     def main_menu(self):
         return self.__main_menu
-    
-    def __play(self):
-        print('Play')
+
 
             

@@ -1,4 +1,7 @@
 import pygame_menu
+from controller.game_controller import *
+from model.game_model import *
+from model.sample_mazes import *
 
 class PlayGroundMenu:
 
@@ -39,4 +42,6 @@ class PlayGroundMenu:
             [('Algorithm 1', 1), ('Algorithm 2', 2), ('Algorithm 3', 3)], # ilustrative
             onchange=self.__on_algorithm_change,
         )
+
+        self.__playground_menu.add.button('Play', GameController(GameModel(game_map), WINDOW).start)
     

@@ -565,8 +565,6 @@ from menu.main_menu import MainMenu
 def main():
     pygame.init()
 
-    WINDOW = pygame.display.set_mode(WINDOW_SIZE)
-
     main_menu = MainMenu(WINDOW_SIZE).main_menu
 
     running = True
