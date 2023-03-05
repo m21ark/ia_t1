@@ -17,8 +17,8 @@ class PlayGroundMenu:
             mouse_enabled=True
         )
         self.__selections()
-        self.maze = 0
-        self.algorithm = 0
+        self.maze = -1
+        self.algorithm = -1
 
     @property
     def playground_menu(self):
@@ -30,8 +30,13 @@ class PlayGroundMenu:
     def __on_algorithm_change(self, value, extra):
         self.algorithm = value
 
+    def start_game(self):
+        if self.maze == -1 or self.algorithm == -1:
+            return None
+        return GameController(GameModel(game_maps[self.maze[1]]), WINDOW).start()
+
     def __selections(self):
-        self.maze_sel = self.__playground_menu.add.selector(
+        self.maze_sel = self.__playground_menu.add.dropselect(
             'Maze',
             [('Maze 1', 1), ('Maze 2', 2), ('Maze 3', 3)],  # ilustrative
             onchange=self.__on_maze_change,
@@ -45,4 +50,4 @@ class PlayGroundMenu:
         )
 
         self.__playground_menu.add.button(
-            'Play', GameController(GameModel(game_map), WINDOW).start)
+            'Play', self.start_game)

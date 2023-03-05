@@ -45,6 +45,9 @@ class BlockState:
             return False  # out of bounds
         if self.x2 > MATRIX_ROW-1 or self.x2 < 0 or self.y2 > MATRIX_COL-1 or self.y2 < 0:
             return False  # out of bounds
+        if self.maze[self.x + self.y * MATRIX_COL] == BLOCK_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == BLOCK_NODE:
+            return False # blocked
+
         a = self.maze[self.x + self.y * MATRIX_COL] not in INVALID_NODES
         b = self.maze[self.x2 + self.y2 * MATRIX_COL] not in INVALID_NODES
         return a and b

@@ -12,6 +12,10 @@ class GameController:
         running = True
         clock = pygame.time.Clock()
         already_moved = False
+
+        keys = [(pygame.K_LEFT, moveLeft), (pygame.K_RIGHT, moveRight),
+            (pygame.K_UP, moveUp), (pygame.K_DOWN, moveDown)]
+
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -24,8 +28,7 @@ class GameController:
             self.game_view.draw_block()
             pygame.display.update()
             
-            keys = [(pygame.K_LEFT, moveLeft), (pygame.K_RIGHT, moveRight),
-                     (pygame.K_UP, moveUp), (pygame.K_DOWN, moveDown)]
+
 
             for key, func in keys:
                 if pygame.key.get_pressed()[key] and not already_moved:
@@ -34,11 +37,10 @@ class GameController:
                     new_block = func(self.game_model.get_block)
                     if (new_block):
                         self.game_model.set_block(new_block)
-                        print(self.game_model.get_block.x, self.game_model.get_block.y, self.game_model.get_block.x2, self.game_model.get_block.y2)
+                        # print(self.game_model.get_block.x, self.game_model.get_block.y, self.game_model.get_block.x2, self.game_model.get_block.y2)
                     else:
                         running = False # add menu for game finish and pass the  new_block to know the end state
                         self.game_view.game_over(new_block)
-
 
                     if new_block != None and new_block.checkIfGoal():
                         running = False # add menu for game finish and pass the new_block

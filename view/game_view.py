@@ -63,7 +63,6 @@ class GameView:
         if new_block != None and new_block.checkIfGoal():
             a = menu.add.button('You Win!!', print_r)
         else:
-            # adicionar o fallen se interesar
             a = menu.add.button('You Lost!!', print_r)
 
         while run:
