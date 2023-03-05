@@ -3,11 +3,12 @@ from model.sample_mazes import *
 import pygame
 import pygame_menu
 
+
 class GameView:
     def __init__(self, surface, model):
         self.surface = surface
         self.model = model
-    
+
     def get_color(array, x, y):
         node = array[x + MATRIX_COL * y]
         if node == EMPTY_NODE:
@@ -28,18 +29,22 @@ class GameView:
             return PURPLE
         else:
             return BLACK
-   
+
     def draw_maze(self):
         for x in range(MATRIX_COL):
             for y in range(MATRIX_ROW):
-                pygame.draw.rect(self.surface, GameView.get_color(self.model.get_maze, x, y), (x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                pygame.draw.rect(self.surface, GameView.get_color(
+                    self.model.get_maze, x, y), (x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
     def draw_block(self):
         if self.model.get_block.isStanding():
-            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE, self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE,
+                             self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
         else:
-            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE, self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE, self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE,
+                             self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE,
+                             self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
     def game_over(self, new_block):
         menu = pygame_menu.Menu(
@@ -50,6 +55,7 @@ class GameView:
         )
 
         run = True
+
         def print_r():
             print(run)
 
@@ -57,9 +63,8 @@ class GameView:
         if new_block != None and new_block.checkIfGoal():
             a = menu.add.button('You Win!!', print_r)
         else:
-            a = menu.add.button('You Lost!!', print_r) # adicionar o fallen se interesar
+            a = menu.add.button('You Lost!!', print_r)
 
-        
         while run:
 
             events = pygame.event.get()
@@ -69,10 +74,7 @@ class GameView:
 
             if a.is_selected():
                 run = False
-        
+
             menu.update(events)
             menu.draw(self.surface)
             pygame.display.update()
-        
-
-

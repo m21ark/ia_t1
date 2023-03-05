@@ -1,7 +1,8 @@
 import pygame_menu
 
+
 class HelpMenu:
-    
+
     def __init__(self, window):
         self.__help_menu = pygame_menu.Menu(
             height=window[1],

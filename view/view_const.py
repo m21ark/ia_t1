@@ -1,5 +1,5 @@
 from math import sqrt
-import pygame 
+import pygame
 
 EMPTY_NODE = 0
 START_NODE = 1
@@ -30,6 +30,6 @@ BLUE = (0, 0, 255)  # PlayerNode
 YELLOW = (255, 255, 0)  # BlockNode
 PURPLE = (255, 0, 255)  # KillerNode
 
-INVALID_NODES = [BLOCK_NODE, KILLER_NODE, EMPTY_NODE]
+INVALID_NODES = [KILLER_NODE, EMPTY_NODE]
 
 WINDOW = pygame.display.set_mode(WINDOW_SIZE)

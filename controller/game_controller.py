@@ -11,20 +11,28 @@ class GameController:
     def start(self):
         running = True
         clock = pygame.time.Clock()
+        already_moved = False
+
+        keys = [(pygame.K_LEFT, moveLeft), (pygame.K_RIGHT, moveRight),
+            (pygame.K_UP, moveUp), (pygame.K_DOWN, moveDown)]
+
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     quit()
+                if event.type == pygame.KEYUP:
+                    already_moved = False
+
             self.game_view.draw_maze()
             self.game_view.draw_block()
             pygame.display.update()
             
-            keys = [(pygame.K_LEFT, moveLeft), (pygame.K_RIGHT, moveRight),
-                     (pygame.K_UP, moveUp), (pygame.K_DOWN, moveDown)]
+
 
             for key, func in keys:
-                if pygame.key.get_pressed()[key]:
+                if pygame.key.get_pressed()[key] and not already_moved:
+                    already_moved = True
  
                     new_block = func(self.game_model.get_block)
                     if (new_block):
@@ -33,14 +41,13 @@ class GameController:
                         running = False # add menu for game finish and pass the  new_block to know the end state
                         self.game_view.game_over(new_block)
 
-
                     if new_block != None and new_block.checkIfGoal():
                         running = False # add menu for game finish and pass the new_block
                         self.game_view.game_over(new_block)
 
                     pygame.display.update()
             
-            clock.tick(10)
+            clock.tick(30)
 
     def ia_solver_start(self, algo):
         

@@ -1,7 +1,8 @@
 import pygame_menu
 
+
 class OptionsMenu:
-    
+
     def __init__(self, window):
         self.__options_menu = pygame_menu.Menu(
             height=window[1],

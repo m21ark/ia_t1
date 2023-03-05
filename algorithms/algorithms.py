@@ -1,5 +1,5 @@
-## returns path between start and end points (x,y) in a matrix
-#def bfs(matrix, start, end):
+# returns path between start and end points (x,y) in a matrix
+# def bfs(matrix, start, end):
 #    # Define the dimensions of the matrix
 #    rows = int(sqrt(len(matrix)))
 #    cols = rows
@@ -55,6 +55,10 @@
 
 
 # A generic definition of a tree node holding a state of the problem
+from collections import deque
+from algorithms.block_state import *
+
+
 class TreeNode:
     def __init__(self, state, parent=None):
         self.state = state
@@ -83,29 +87,28 @@ from collections import deque
 def breadth_first_search(initial_state, goal_state_func, operators_func):
     root = TreeNode(initial_state)   # create the root node in the search tree
     queue = deque([root])   # initialize the queue to store the nodes
-    
+
     while queue:
         node = queue.popleft()   # get first element in the queue
         if goal_state_func(node.state):   # check goal state
             return node
-        
+
         for state in operators_func(node.state):   # go through next states
             # create tree node with the new state
             state_node = TreeNode(state)
-            
+
             # link child node to its parent in the tree
             node.add_child(state_node)
-            
+
             # enqueue the child node
             queue.append(state_node)
-            
 
     return None
 
 
 def depth_first_search(initial_state, goal_state_func, operators_func):
-    root = TreeNode(initial_state)   
-    stack = [root]   
+    root = TreeNode(initial_state)
+    stack = [root]
 
     visited = set()
     while stack:
@@ -118,13 +121,14 @@ def depth_first_search(initial_state, goal_state_func, operators_func):
 
         if goal_state_func(node.state):
             return node
-        
-        stack.extend([TreeNode(state, node) for state in operators_func(node.state)])
+
+        stack.extend([TreeNode(state, node)
+                     for state in operators_func(node.state)])
     return None
 
 
 def depth_limited_search(initial_state, goal_state_func, operators_func, depth_limit):
-    root = TreeNode(initial_state) 
+    root = TreeNode(initial_state)
     stack = [root]
     visited = set()
     while stack:
@@ -139,16 +143,16 @@ def depth_limited_search(initial_state, goal_state_func, operators_func, depth_l
             return node
 
         if node.depth < depth_limit:
-            stack.extend([TreeNode(state, node) for state in operators_func(node.state)])
+            stack.extend([TreeNode(state, node)
+                         for state in operators_func(node.state)])
     return None
-
-
 
 
 def iterative_deepening_search(initial_state, goal_state_func, operators_func, depth_limit):
 
     for depth in range(depth_limit):
-        goal = depth_limited_search(initial_state, goal_state_func, operators_func, depth)
+        goal = depth_limited_search(
+            initial_state, goal_state_func, operators_func, depth)
         if goal:
             return goal
     return None
@@ -169,15 +173,16 @@ def greedy_search(initial_state, goal_state_func, operators_func, heuristic_func
         if goal_state_func(node.state):
             return node
 
-        queue.extend([TreeNode(state, node) for state in operators_func(node.state)])
-        queue.sort(key=lambda node: heuristic_func(node)) # IS THIS THE BEST SOLUTION IN TERMS OF TIME COMPLEXITY
+        queue.extend([TreeNode(state, node)
+                     for state in operators_func(node.state)])
+        # IS THIS THE BEST SOLUTION IN TERMS OF TIME COMPLEXITY
+        queue.sort(key=lambda node: heuristic_func(node))
     return None
-    
 
 
 def a_star_search(initial_state, goal_state_func, operators_func, heuristic):
     # your code here
-    
+
     root = TreeNode(initial_state)
     queue = [root]
     visited = set()
@@ -191,15 +196,10 @@ def a_star_search(initial_state, goal_state_func, operators_func, heuristic):
         if goal_state_func(node.state):
             return node
 
-        queue.extend([TreeNode(state, node) for state in operators_func(node.state)])
+        queue.extend([TreeNode(state, node)
+                     for state in operators_func(node.state)])
         queue.sort(key=lambda node: node.depth + heuristic(node))
     return None
-
-
-
-
-from algorithms.block_state import *
-
 
 
 def moveUp(self):
@@ -226,6 +226,7 @@ def moveUp(self):
         return None
     return new_st
 
+
 def moveDown(self):
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
@@ -250,13 +251,14 @@ def moveDown(self):
         return None
     return new_st
 
+
 def moveLeft(self):
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
         x2 -= 1
         x -= 2
-    else:   
+    else:
         if (self.isXrightY()):
             y = self.y2
             x2 -= 1
@@ -273,6 +275,7 @@ def moveLeft(self):
     if (not new_st.checkIfCanMove()):
         return None
     return new_st
+
 
 def moveRight(self):
     # save current position

@@ -3,7 +3,6 @@ from view.view_const import *
 from model.sample_mazes import *
 from menu.main_menu import MainMenu
 
-
 def main():
     pygame.init()
 
@@ -16,12 +15,12 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 running = False
-        
+
         main_menu.update(events)
         main_menu.draw(WINDOW)
 
         pygame.display.update()
 
+
 if __name__ == "__main__":
     main()
-                
