@@ -19,7 +19,7 @@ class BlockState:
 		return not self.__eq__(other)
 		
 	def __hash__(self):
-		return hash((x,y,x2,y2))
+		return hash((self.x,self.y,self.x2,self.y2))
 		
 	def __str__(self):
 		return f"{self.x} , {self.y} : {self.x2} , {self.y2}"

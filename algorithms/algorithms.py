@@ -69,6 +69,15 @@ class TreeNode:
         self.children.append(child_node)
         child_node.parent = self
 
+    def get_path(self):
+        path = []
+        node = self
+        while node is not None:
+            path.append(node.state)
+            node = node.parent
+        path.reverse()
+        return path
+
 from collections import deque
 
 def breadth_first_search(initial_state, goal_state_func, operators_func):
@@ -243,24 +252,20 @@ def moveDown(self):
 
 def moveLeft(self):
     # save current position
-    print("move left")
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
         x2 -= 1
         x -= 2
     else:   
         if (self.isXrightY()):
-            print("x right y")
             y = self.y2
             x2 -= 1
             x = x2
         elif (self.isYrightX()):
-            print("y right x")
             y2 = self.y
             x -= 1
             x2 = x
         else:  # X and Y are on the same col
-            print("same col")
             x -= 1
             x2 -= 1
     # check if new position is valid.
@@ -292,3 +297,11 @@ def moveRight(self):
     if (not new_st.checkIfCanMove()):
         return None
     return new_st
+
+
+def goal_block_state(self): # TODO: a mesma questão de ser or ou and
+    return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
+
+
+def child_block_states(state):
+    return [ x for x in [moveUp(state), moveDown(state), moveLeft(state), moveRight(state)] if x is not None]

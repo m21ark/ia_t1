@@ -29,7 +29,6 @@ class GameController:
                     new_block = func(self.game_model.get_block)
                     if (new_block):
                         self.game_model.set_block(new_block)
-                        print(self.game_model.get_block.x, self.game_model.get_block.y, self.game_model.get_block.x2, self.game_model.get_block.y2)
                     else:
                         running = False # add menu for game finish and pass the  new_block to know the end state
                         self.game_view.game_over(new_block)
@@ -43,5 +42,21 @@ class GameController:
             
             clock.tick(10)
 
+    def ia_solver_start(self, algo):
+        
+        def ia_solver_run():
+            
+            print(algo[0])
+            sol_node = algo[1]()
+            path = sol_node.get_path()
+
+            for node in path:
+                self.game_view.draw_maze()
+                self.game_model.set_block(node)
+                self.game_view.draw_block()
+                pygame.display.update()
+            
+        return ia_solver_run
+            
 
     

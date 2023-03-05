@@ -5,6 +5,11 @@ from model.sample_mazes import *
 
 class PlayGroundMenu:
 
+    algorithm = 0 ############################### NOTA::::::AQUI EM BAIXO TEM O GAME_MAP mas o mapa pode mudar, secalhar passar pelo x ?
+    algs = [('Dfs', lambda : depth_first_search(BlockState(3,3,3,3,game_map), goal_block_state, child_block_states)),
+            ('Bfs', lambda : breadth_first_search(BlockState(3,3,3,3,game_map), goal_block_state, child_block_states)), 
+            ('Iterative deepening', iterative_deepening_search(BlockState(3,3,3,3,game_map), goal_block_state, child_block_states,100))] # ilustrative
+
     def __init__(self, window):
         self.__playground_menu = pygame_menu.Menu(
             height=window[1],
@@ -39,9 +44,11 @@ class PlayGroundMenu:
 
         self.__algorithm_sel = self.__playground_menu.add.dropselect(
             'Algorithm',
-            [('Algorithm 1', 1), ('Algorithm 2', 2), ('Algorithm 3', 3)], # ilustrative
+            self.algs,
             onchange=self.__on_algorithm_change,
+            default=self.algorithm,
         )
 
+        self.__playground_menu.add.button('IA-Solver', GameController(GameModel(game_map), WINDOW).ia_solver_start(self.algs[self.algorithm])) # ilustrative ... change map
         self.__playground_menu.add.button('Play', GameController(GameModel(game_map), WINDOW).start)
     
