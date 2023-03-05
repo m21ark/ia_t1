@@ -189,3 +189,102 @@ def a_star_search(initial_state, goal_state_func, operators_func, heuristic):
 
 
 
+from algorithms.block_state import *
+
+
+
+def moveUp(self):
+    # save current position
+    x, y, x2, y2 = self.x, self.y, self.x2, self.y2
+    if (self.isStanding()):
+        y2 -= 2
+        y -= 1
+    else:
+        if (self.isYtopX()):
+            x = self.x2
+            y2 -= 1
+            y = self.y2
+        elif (self.isXtopY()):
+            x2 = self.x
+            y -= 1
+            y2 = self.y
+        else:  # X and Y are on the same row
+            y -= 1
+            y2 -= 1
+    # check if new position is valid.
+    new_st = BlockState(x, y, x2, y2, self.maze)
+    if (not new_st.checkIfCanMove()):
+        return None
+    return new_st
+
+def moveDown(self):
+    # save current position
+    x, y, x2, y2 = self.x, self.y, self.x2, self.y2
+    if (self.isStanding()):
+        y2 += 2
+        y += 1
+    else:
+        if (self.isXtopY()):
+            x = self.x2
+            y2 += 1
+            y = self.y2
+        elif (self.isYtopX()):
+            x2 = self.x
+            y += 1
+            y2 = self.y
+        else:  # X and Y are on the same row
+            y += 1
+            y2 += 1
+    # check if new position is valid.
+    new_st = BlockState(x, y, x2, y2, self.maze)
+    if (not new_st.checkIfCanMove()):
+        return None
+    return new_st
+
+def moveLeft(self):
+    # save current position
+    x, y, x2, y2 = self.x, self.y, self.x2, self.y2
+    if (self.isStanding()):
+        x2 -= 1
+        x -= 2
+    else:   
+        if (self.isXrightY()):
+            y = self.y2
+            x2 -= 1
+            x = self.x2
+        elif (self.isYrightX()):
+            y2 = self.y
+            x -= 1
+            x2 = self.x
+        else:  # X and Y are on the same col
+            x -= 1
+            x2 -= 1
+    # check if new position is valid.
+    new_st = BlockState(x, y, x2, y2, self.maze)
+    if (not new_st.checkIfCanMove()):
+        return None
+    return new_st
+
+def moveRight(self):
+    # save current position
+    x, y, x2, y2 = self.x, self.y, self.x2, self.y2
+    if (self.isStanding()):
+        x2 += 1
+        x += 2
+    else:
+        if (self.isYrightX()):
+            y = self.y2
+            x2 += 1
+            x = self.x2
+        elif (self.isXrightY()):
+            y2 = self.y
+            x += 1
+            x2 = self.x
+        else:  # X and Y are on the same col
+            x += 1
+            x2 += 1
+    # check if new position is valid.
+    new_st = BlockState(x, y, x2, y2, self.maze)
+    if (not new_st.checkIfCanMove()):
+        return None
+    return new_st
