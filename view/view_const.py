@@ -1,5 +1,5 @@
 from math import sqrt
-import pygame 
+import pygame
 
 EMPTY_NODE = 0
 START_NODE = 1
