@@ -301,6 +301,15 @@ def moveRight(self):
         return None
     return new_st
 
+def hint_call(alg, blockSt : BlockState):
+    hint_call.dic = {
+        depth_first_search : lambda : depth_first_search(blockSt, goal_block_state, child_block_states),
+        breadth_first_search : lambda : breadth_first_search(blockSt, goal_block_state, child_block_states),
+        iterative_deepening_search : lambda :  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 300),
+    }
+
+    return hint_call.dic[alg]
+
 
 def goal_block_state(self): # TODO: a mesma questão de ser or ou and
     return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE

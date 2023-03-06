@@ -25,9 +25,9 @@ class PlayGroundMenu:
         x, y = GameModel.find_start_end_nodes(game_maps[self.maze][1])
         self.initial_pos = BlockState(x,y,x,y,game_maps[self.maze][1])
 
-        self.algs = [('Dfs', lambda : depth_first_search(self.initial_pos, goal_block_state, child_block_states)),
-            ('Bfs', lambda : breadth_first_search(self.initial_pos, goal_block_state, child_block_states)), 
-            ('Iterative deepening(200 depth)', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,200))] # ilustrative
+        self.algs = [('Dfs', lambda : depth_first_search(self.initial_pos, goal_block_state, child_block_states), depth_first_search),
+            ('Bfs', lambda : breadth_first_search(self.initial_pos, goal_block_state, child_block_states), breadth_first_search), 
+            ('Iterative deepening(200 depth)', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,300), iterative_deepening_search)] # ilustrative
        
         self.__selections()
 
@@ -45,7 +45,7 @@ class PlayGroundMenu:
         self.ai.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
 
 
-    def __on_algorithm_change(self, value, extra):
+    def __on_algorithm_change(self, value, extra, extra_):
         self.algorithm = value[1]
         self.play.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).start(self.algs[self.algorithm]))
         self.ai.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))

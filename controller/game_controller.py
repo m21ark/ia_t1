@@ -29,12 +29,15 @@ class GameController:
                 if (pygame.key.get_pressed()[pygame.K_q]):
                     running = False
 
-
                 self.game_view.draw_maze()
                 self.game_view.draw_block()
+
+                if (pygame.key.get_pressed()[pygame.K_h]):
+                    sol_node = hint_call(algo[2], self.game_model.block)()
+                    move = sol_node.get_path()[1]
+                    self.game_view.draw_node(move)
+                    
                 pygame.display.update()
-
-
 
                 for key, func in keys:
                     if pygame.key.get_pressed()[key] and not already_moved:
