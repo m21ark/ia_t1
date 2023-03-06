@@ -9,10 +9,10 @@ class GameView:
         self.surface = surface
         self.model = model
 
-    def get_color(array, x, y):
+    def get_color(array, x, y, show=False):
         node = array[x + MATRIX_COL * y]
         if node == EMPTY_NODE:
-            return GREY
+            return GREY if show else BG_COLOR
         elif node == START_NODE:
             return WHITE
         elif node == END_NODE:

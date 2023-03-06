@@ -30,6 +30,7 @@ BLUE = (0, 0, 255)  # PlayerNode
 YELLOW = (255, 255, 0)  # BlockNode
 PURPLE = (255, 0, 255)  # KillerNode
 LIGHT_BLUE = (133, 201, 232)  # PlayerNode
+BG_COLOR = (40, 41, 35)
 
 INVALID_NODES = [KILLER_NODE, EMPTY_NODE]
 
