@@ -27,7 +27,7 @@ class PlayGroundMenu:
 
         self.algs = [('Dfs', lambda : depth_first_search(self.initial_pos, goal_block_state, child_block_states)),
             ('Bfs', lambda : breadth_first_search(self.initial_pos, goal_block_state, child_block_states)), 
-            ('Iterative deepening', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,200))] # ilustrative
+            ('Iterative deepening(200 depth)', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,200))] # ilustrative
        
         self.__selections()
 
@@ -40,23 +40,15 @@ class PlayGroundMenu:
 
         x, y = GameModel.find_start_end_nodes(game_maps[self.maze][1])
         self.initial_pos = BlockState(x,y,x,y,game_maps[self.maze][1])
-
-        self.algs = [('Dfs', lambda : depth_first_search(self.initial_pos, goal_block_state, child_block_states)),
-            ('Bfs', lambda : breadth_first_search(self.initial_pos, goal_block_state, child_block_states)), 
-            ('Iterative deepening', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,200))] # ilustrative
        
-        self.play.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).start)
+        self.play.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).start(self.algs[self.algorithm]))
         self.ai.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
 
 
     def __on_algorithm_change(self, value, extra):
         self.algorithm = value[1]
+        self.play.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).start(self.algs[self.algorithm]))
         self.ai.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
-
-    def start_game(self): # ????
-        if self.maze == -1 or self.algorithm == -1:
-            return None
-        return GameController(GameModel(game_maps[self.maze[1]]), WINDOW).start()
 
     def __selections(self):
         self.maze_sel = self.__playground_menu.add.dropselect(
@@ -74,5 +66,5 @@ class PlayGroundMenu:
         )
         
         self.ai = self.__playground_menu.add.button('AI-Solver', GameController(GameModel(game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm])) # ilustrative ... change map
-        self.play = self.__playground_menu.add.button('Play', GameController(GameModel(game_maps[self.maze][1]), WINDOW).start)
+        self.play = self.__playground_menu.add.button('Play', GameController(GameModel(game_maps[self.maze][1]), WINDOW).start(self.algs[self.algorithm]))
     

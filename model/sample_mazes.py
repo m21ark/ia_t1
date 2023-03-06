@@ -133,7 +133,7 @@ maze_4[25 + 25*15] = 1
 maze_4[15 + 15*15] = 2
 
 
-game_maps = [('MAZE 1',maze_1), ('MAZE 2', maze_2), ('MAZE 3', maze_3)]
+game_maps = [('MAZE 1',maze_1), ('MAZE 2', maze_2), ('MAZE 3', maze_3), ('MAZE 4', maze_4), ('MAZE 5', maze_5)]
 
 from view.view_const import *
 
