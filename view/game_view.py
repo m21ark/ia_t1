@@ -2,7 +2,7 @@ from view.view_const import *
 from model.sample_mazes import *
 import pygame
 import pygame_menu
-
+from algorithms.algorithms import BlockState
 
 class GameView:
     def __init__(self, surface, model):
@@ -45,7 +45,17 @@ class GameView:
                              self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
             pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE,
                              self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-
+            
+    def draw_node(self, node : BlockState):
+        if node.isStanding():
+            pygame.draw.rect(self.surface, LIGHT_BLUE, (node.x * BLOCK_SIZE,
+                             node.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+        else:
+            pygame.draw.rect(self.surface, LIGHT_BLUE, (node.x * BLOCK_SIZE,
+                             node.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.surface, LIGHT_BLUE, (node.x2 * BLOCK_SIZE,
+                             node.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            
     def game_over(self, new_block):
         menu = pygame_menu.Menu(
             height=WINDOW_SIZE[1],

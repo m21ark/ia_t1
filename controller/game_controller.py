@@ -27,7 +27,7 @@ class GameController:
             self.game_view.draw_maze()
             self.game_view.draw_block()
             pygame.display.update()
-            
+                    
 
 
             for key, func in keys:
@@ -57,10 +57,18 @@ class GameController:
             sol_node = algo[1]()
             path = sol_node.get_path()
 
+            already_moved = []
+
             for node in path:
                 self.game_view.draw_maze()
                 self.game_model.set_block(node)
+                
+                for n in already_moved:
+                    self.game_view.draw_node(n)
+
                 self.game_view.draw_block()
+
+                already_moved.append(node)
                 pygame.display.update()
 
                 pygame.time.delay(50)

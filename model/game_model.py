@@ -9,7 +9,8 @@ class GameModel:
         start_x, start_y = self.find_start_end_nodes(maze)
         self.block = BlockState(start_x, start_y, start_x, start_y, maze)
 
-    def find_start_end_nodes(self, maze):
+    @staticmethod
+    def find_start_end_nodes(maze):
 
         # hardcoded values :( to change later
         MATRIX_ROW = round(sqrt(len(maze)))

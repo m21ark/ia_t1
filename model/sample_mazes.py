@@ -72,9 +72,10 @@ maze_3[25 + 25*15] = 1
 maze_3[15 + 15*15] = 2
 
 
-game_maps = [maze_1, maze_2, maze_3]
+game_maps = [('MAZE 1',maze_1), ('MAZE 2', maze_2), ('MAZE 3', maze_3)]
 
+from view.view_const import *
 
 MATRIX_ROW = round(sqrt(len(maze_1)))
 MATRIX_COL = MATRIX_ROW
-BLOCK_SIZE = 900/MATRIX_ROW
+BLOCK_SIZE = WINDOW_SIZE[0]/MATRIX_ROW

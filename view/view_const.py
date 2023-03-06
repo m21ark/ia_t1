@@ -11,8 +11,8 @@ BLOCK_NODE = 6
 KILLER_NODE = 7
 
 # Define the window size and block size
-screen_width = 900  # 800
-screen_height = 900  # 800
+screen_width = 600  # 800
+screen_height = 600  # 800
 WINDOW_SIZE = (screen_width, screen_height)
 
 
@@ -29,6 +29,7 @@ GREEN = (0, 255, 0)  # PathNode
 BLUE = (0, 0, 255)  # PlayerNode
 YELLOW = (255, 255, 0)  # BlockNode
 PURPLE = (255, 0, 255)  # KillerNode
+LIGHT_BLUE = (133, 201, 232)  # PlayerNode
 
 INVALID_NODES = [KILLER_NODE, EMPTY_NODE]
 
