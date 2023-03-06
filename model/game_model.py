@@ -1,9 +1,11 @@
 from algorithms.block_state import BlockState
 from math import sqrt
-import view.view_const
+from model.sample_mazes import *
 
 
 class GameModel:
+    sel_maze = game_maps[0][1]
+
     def __init__(self, maze):
         self.maze = maze
         start_x, start_y = self.find_start_end_nodes(maze)

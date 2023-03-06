@@ -35,6 +35,14 @@ class GameView:
             for y in range(MATRIX_ROW):
                 pygame.draw.rect(self.surface, GameView.get_color(
                     self.model.get_maze, x, y), (x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                
+    @staticmethod
+    def draw_showoff(maze):
+        for x in range(MATRIX_COL):
+            for y in range(MATRIX_ROW):
+                pygame.draw.rect(WINDOW, GameView.get_color(maze, x, y), ( x * BLOCK_SIZE/3 + WINDOW_SIZE[0]/2 - MATRIX_COL/2 * BLOCK_SIZE/3,
+                                                                           y * BLOCK_SIZE/3 + WINDOW_SIZE[1]/18 
+                                                                          , BLOCK_SIZE/3, BLOCK_SIZE/3))
 
     def draw_block(self):
         if self.model.get_block.isStanding():

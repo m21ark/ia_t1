@@ -11,8 +11,8 @@ BLOCK_NODE = 6
 KILLER_NODE = 7
 
 # Define the window size and block size
-screen_width = 600  # 800
-screen_height = 600  # 800
+screen_width = 900  # 800
+screen_height = 900  # 800
 WINDOW_SIZE = (screen_width, screen_height)
 
 
