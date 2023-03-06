@@ -48,6 +48,8 @@ class GameController:
                     pygame.display.update()
             
             clock.tick(30)
+        
+        self.game_model.reset_block()
 
     def ia_solver_start(self, algo):
         

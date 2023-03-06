@@ -33,6 +33,11 @@ class GameModel:
     @property
     def get_block(self):
         return self.block
-
+    
     def set_block(self, block):
         self.block = block
+
+    def reset_block(self):
+        start_x, start_y = self.find_start_end_nodes(self.block.maze)
+        self.block = BlockState(start_x, start_y, start_x, start_y, self.block.maze)
+

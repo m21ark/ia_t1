@@ -27,7 +27,7 @@ class PlayGroundMenu:
 
         self.algs = [('Dfs', lambda : depth_first_search(self.initial_pos, goal_block_state, child_block_states)),
             ('Bfs', lambda : breadth_first_search(self.initial_pos, goal_block_state, child_block_states)), 
-            ('Iterative deepening', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,100))] # ilustrative
+            ('Iterative deepening', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,200))] # ilustrative
        
         self.__selections()
 
@@ -43,9 +43,11 @@ class PlayGroundMenu:
 
         self.algs = [('Dfs', lambda : depth_first_search(self.initial_pos, goal_block_state, child_block_states)),
             ('Bfs', lambda : breadth_first_search(self.initial_pos, goal_block_state, child_block_states)), 
-            ('Iterative deepening', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,100))] # ilustrative
+            ('Iterative deepening', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states,200))] # ilustrative
        
         self.play.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).start)
+        self.ai.update_callback(GameController(GameModel(game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
+
 
     def __on_algorithm_change(self, value, extra):
         self.algorithm = value[1]
