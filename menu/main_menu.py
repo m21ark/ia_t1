@@ -4,6 +4,7 @@ from menu.options_menu import OptionsMenu
 from menu.play_menu import PlayGroundMenu
 from model.sample_mazes import *
 
+
 class MainMenu:
 
     def __init__(self, window):
@@ -23,7 +24,7 @@ class MainMenu:
     @property
     def main_menu(self):
         return self.__main_menu
-    
+
     @property
     def play_ground(self):
         return self._play_ground

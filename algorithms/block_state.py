@@ -3,7 +3,7 @@ from model.sample_mazes import *
 
 
 class BlockState:
-	
+
     def __init__(self, x, y, x2, y2, maze):
         self.x = x
         self.y = y
@@ -18,10 +18,10 @@ class BlockState:
 
     def __ne__(self, other):
         return not self.__eq__(other)
-		
+
     def __hash__(self):
-        return hash((self.x,self.y,self.x2,self.y2))
-		
+        return hash((self.x, self.y, self.x2, self.y2))
+
     def __str__(self):
         return f"{self.x} , {self.y} : {self.x2} , {self.y2}"
 
@@ -46,7 +46,7 @@ class BlockState:
         if self.x2 > MATRIX_ROW-1 or self.x2 < 0 or self.y2 > MATRIX_COL-1 or self.y2 < 0:
             return False  # out of bounds
         if self.maze[self.x + self.y * MATRIX_COL] == BLOCK_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == BLOCK_NODE:
-            return False # blocked
+            return False  # blocked
 
         a = self.maze[self.x + self.y * MATRIX_COL] not in INVALID_NODES
         b = self.maze[self.x2 + self.y2 * MATRIX_COL] not in INVALID_NODES

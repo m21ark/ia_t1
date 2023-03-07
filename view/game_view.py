@@ -4,6 +4,7 @@ import pygame
 import pygame_menu
 from algorithms.algorithms import BlockState
 
+
 class GameView:
     def __init__(self, surface, model):
         self.surface = surface
@@ -31,18 +32,23 @@ class GameView:
             return BLACK
 
     def draw_maze(self):
-        for x in range(MATRIX_COL):
-            for y in range(MATRIX_ROW):
-                pygame.draw.rect(self.surface, GameView.get_color(
-                    self.model.get_maze, x, y), (x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-                
+        for row in range(MATRIX_ROW):
+            for col in range(MATRIX_COL):
+                # Get the tile position for the current cell
+                tile_position = tile_positions[self.model.get_maze[row + col * MATRIX_COL]]
+                # Extract the tile from the tileset image
+                tile = tileset_image.subsurface(pygame.Rect(
+                    tile_position[0] * TILE_SIZE, tile_position[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+                # Draw the scaled tile on the screen
+                self.surface.blit(
+                    tile, (row * TILE_SIZE, col * TILE_SIZE))
+
     @staticmethod
     def draw_showoff(maze):
         for x in range(MATRIX_COL):
             for y in range(MATRIX_ROW):
-                pygame.draw.rect(WINDOW, GameView.get_color(maze, x, y), ( x * BLOCK_SIZE/3 + WINDOW_SIZE[0]/2 - MATRIX_COL/2 * BLOCK_SIZE/3,
-                                                                           y * BLOCK_SIZE/3 + WINDOW_SIZE[1]/18 
-                                                                          , BLOCK_SIZE/3, BLOCK_SIZE/3))
+                pygame.draw.rect(WINDOW, GameView.get_color(maze, x, y), (x * BLOCK_SIZE/3 + WINDOW_SIZE[0]/2 - MATRIX_COL/2 * BLOCK_SIZE/3,
+                                                                          y * BLOCK_SIZE/3 + WINDOW_SIZE[1]/18, BLOCK_SIZE/3, BLOCK_SIZE/3))
 
     def draw_block(self):
         if self.model.get_block.isStanding():
@@ -53,8 +59,8 @@ class GameView:
                              self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
             pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE,
                              self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-            
-    def draw_node(self, node : BlockState):
+
+    def draw_node(self, node: BlockState):
         if node.isStanding():
             pygame.draw.rect(self.surface, LIGHT_BLUE, (node.x * BLOCK_SIZE,
                              node.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
@@ -63,7 +69,7 @@ class GameView:
                              node.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
             pygame.draw.rect(self.surface, LIGHT_BLUE, (node.x2 * BLOCK_SIZE,
                              node.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-            
+
     def game_over(self, new_block):
         menu = pygame_menu.Menu(
             height=WINDOW_SIZE[1],

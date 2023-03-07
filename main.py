@@ -5,6 +5,7 @@ from menu.main_menu import MainMenu
 from view.game_view import GameView
 from model.game_model import *
 
+
 def main():
     pygame.init()
 

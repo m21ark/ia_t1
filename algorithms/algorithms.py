@@ -82,7 +82,6 @@ class TreeNode:
         path.reverse()
         return path
 
-from collections import deque
 
 def breadth_first_search(initial_state, goal_state_func, operators_func):
     root = TreeNode(initial_state)   # create the root node in the search tree
@@ -301,19 +300,20 @@ def moveRight(self):
         return None
     return new_st
 
-def hint_call(alg, blockSt : BlockState):
+
+def hint_call(alg, blockSt: BlockState):
     hint_call.dic = {
-        depth_first_search : lambda : depth_first_search(blockSt, goal_block_state, child_block_states),
-        breadth_first_search : lambda : breadth_first_search(blockSt, goal_block_state, child_block_states),
-        iterative_deepening_search : lambda :  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 300),
+        depth_first_search: lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
+        breadth_first_search: lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
+        iterative_deepening_search: lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 300),
     }
 
     return hint_call.dic[alg]
 
 
-def goal_block_state(self): # TODO: a mesma questão de ser or ou and
+def goal_block_state(self):  # TODO: a mesma questão de ser or ou and
     return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
 
 
 def child_block_states(state):
-    return [ x for x in [moveUp(state), moveDown(state), moveLeft(state), moveRight(state)] if x is not None]
+    return [x for x in [moveUp(state), moveDown(state), moveLeft(state), moveRight(state)] if x is not None]

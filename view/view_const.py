@@ -10,14 +10,38 @@ PLAYER_NODE_B = 5
 BLOCK_NODE = 6
 KILLER_NODE = 7
 
+
+TILE_SIZE = 32
+
+"""
+xs - 32
+s - 40
+m - 64
+l - 128
+"""
+
+tileset_image = pygame.image.load('assets/tileset_s_new.png')
+ROW = 30
+COL = 30
+
+tile_positions = [(1, 9),  # EmptyNode
+                  (12, 6),  # StartNode
+                  (12, 9),  # EndNode
+                  (15, 0),  # PathNode
+                  (0, 8),  # PlayerNode
+                  (0, 8),  # PlayerNode
+                  (9, 0),  # BlockNode
+                  (3, 9)]  # KillerNode
+
+
 # Define the window size and block size
-screen_width = 900  # 800
-screen_height = 900  # 800
+screen_width = TILE_SIZE * COL
+screen_height = TILE_SIZE * ROW
 WINDOW_SIZE = (screen_width, screen_height)
 
 
 # Create title string
-title = "My Awesome Game"
+title = "Space Block"
 
 BLACK = (0, 0, 0)
 
@@ -34,4 +58,5 @@ BG_COLOR = (40, 41, 35)
 
 INVALID_NODES = [KILLER_NODE, EMPTY_NODE]
 
-WINDOW = pygame.display.set_mode(WINDOW_SIZE)
+WINDOW = pygame.display.set_mode(WINDOW_SIZE, pygame.RESIZABLE)
+pygame.display.set_caption(title)
