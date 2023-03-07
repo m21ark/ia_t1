@@ -2,6 +2,7 @@ from view.game_view import *
 from model.game_model import *
 from algorithms.algorithms import *
 import pygame.mixer
+from datetime import datetime
 
 
 class GameController:
@@ -15,10 +16,9 @@ class GameController:
         def real_start():
 
             pygame.mixer.init()
-            music = pygame.mixer.Sound('assets/tense_music.wav')
-            music.play(loops=-1)
+            bg_music = pygame.mixer.Sound('assets/tense_music.wav')
+            bg_music.play() # loops=-1
             
-
             running = True
             clock = pygame.time.Clock()
             already_moved = False
@@ -26,6 +26,7 @@ class GameController:
             keys = [(pygame.K_LEFT, moveLeft), (pygame.K_RIGHT, moveRight),
                     (pygame.K_UP, moveUp), (pygame.K_DOWN, moveDown)]
 
+            start_time = datetime.now()
             while running:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -45,7 +46,15 @@ class GameController:
                     move = sol_node.get_path()[1]
                     self.game_view.draw_node(move)
 
+                time_elapsed = datetime.now() - start_time
+
+                self.game_view.draw_time(time_elapsed)
+
                 pygame.display.update()
+
+                if time_elapsed.seconds >= 65:
+                    running = False
+                    self.game_view.game_over(None)
 
                 for key, func in keys:
                     if pygame.key.get_pressed()[key] and not already_moved:
@@ -56,10 +65,12 @@ class GameController:
                             self.game_model.set_block(new_block)
                         else:
                             running = False  # add menu for game finish and pass the  new_block to know the end state
+                            bg_music.stop()
                             self.game_view.game_over(new_block)
 
                         if new_block != None and new_block.checkIfGoal():
                             running = False  # add menu for game finish and pass the new_block
+                            bg_music.stop()
                             self.game_view.game_over(new_block)
 
                         pygame.display.update()
@@ -67,7 +78,7 @@ class GameController:
                 clock.tick(30)
 
             self.game_model.reset_block()
-            music.stop()
+            bg_music.stop()
 
         return real_start
 

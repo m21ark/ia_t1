@@ -10,6 +10,16 @@ class GameView:
         self.surface = surface
         self.model = model
 
+    def draw_time(self, time):
+        font = pygame.font.SysFont('Arial Bold', 30)
+        time_elapsed_str = "Time: " + \
+            str(65-time.seconds) + " s"
+        time_elapsed_text = font.render(
+            time_elapsed_str, False, (255, 255, 255))
+        time_elapsed_rect = time_elapsed_text.get_rect()
+        time_elapsed_rect.topright = (screen_width - 10, 8)
+        self.surface.blit(time_elapsed_text, time_elapsed_rect)
+
     def get_color(array, x, y, show=False):
         node = array[x + MATRIX_COL * y]
         if node == EMPTY_NODE:
@@ -89,10 +99,16 @@ class GameView:
         def print_r():
             print(run)
 
+        pygame.mixer.init()
+
         b = menu.add.button('GAME OVER', print_r)
         if new_block != None and new_block.checkIfGoal():
+            wining_sound = pygame.mixer.Sound('assets/winning_sound.wav')
+            wining_sound.play()
             a = menu.add.button('You Win!!', print_r)
         else:
+            losing_sound = pygame.mixer.Sound('assets/losing_sound.wav')
+            losing_sound.play()
             a = menu.add.button('You Lost!!', print_r)
 
         while run:

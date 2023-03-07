@@ -20,7 +20,7 @@ m - 64
 l - 128
 """
 
-tileset_image = pygame.image.load('assets/tileset_s_new.png')
+tileset_image = pygame.image.load('assets/tileset_xs_block.png')
 ROW = 30
 COL = 30
 
