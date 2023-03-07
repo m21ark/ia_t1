@@ -1,6 +1,7 @@
 from view.game_view import *
 from model.game_model import *
 from algorithms.algorithms import *
+import pygame.mixer
 
 
 class GameController:
@@ -12,6 +13,12 @@ class GameController:
     def start(self, algo):
 
         def real_start():
+
+            pygame.mixer.init()
+            music = pygame.mixer.Sound('assets/tense_music.wav')
+            music.play(loops=-1)
+            
+
             running = True
             clock = pygame.time.Clock()
             already_moved = False
@@ -60,6 +67,7 @@ class GameController:
                 clock.tick(30)
 
             self.game_model.reset_block()
+            music.stop()
 
         return real_start
 
