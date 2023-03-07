@@ -11,7 +11,7 @@ BLOCK_NODE = 6
 KILLER_NODE = 7
 
 
-TILE_SIZE = 32
+TILE_SIZE = 28
 
 """
 xs - 32
@@ -20,7 +20,7 @@ m - 64
 l - 128
 """
 
-tileset_image = pygame.image.load('assets/tileset_xs_block.png')
+tileset_image = pygame.image.load('assets/tileset_xs_rica.png')
 ROW = 30
 COL = 30
 
