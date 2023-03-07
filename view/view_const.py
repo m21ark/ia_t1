@@ -30,7 +30,7 @@ tile_positions = [(1, 9),  # EmptyNode
                   (15, 0),  # PathNode
                   (0, 8),  # PlayerNode
                   (0, 8),  # PlayerNode
-                  (9, 0),  # BlockNode
+                  (11, 9),  # BlockNode
                   (3, 9)]  # KillerNode
 
 

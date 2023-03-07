@@ -51,14 +51,20 @@ class GameView:
                                                                           y * BLOCK_SIZE/3 + WINDOW_SIZE[1]/18, BLOCK_SIZE/3, BLOCK_SIZE/3))
 
     def draw_block(self):
+        tile_position = tile_positions[BLOCK_NODE-1]
+
+        # Extract the tile from the tileset image
+        tile = tileset_image.subsurface(pygame.Rect(
+            tile_position[0] * TILE_SIZE, tile_position[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+
         if self.model.get_block.isStanding():
-            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE,
-                             self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            self.surface.blit(tile, (self.model.get_block.x *
+                              TILE_SIZE, self.model.get_block.y * TILE_SIZE))
         else:
-            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x * BLOCK_SIZE,
-                             self.model.get_block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-            pygame.draw.rect(self.surface, BLUE, (self.model.get_block.x2 * BLOCK_SIZE,
-                             self.model.get_block.y2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            self.surface.blit(tile, (self.model.get_block.x *
+                              TILE_SIZE, self.model.get_block.y * TILE_SIZE))
+            self.surface.blit(tile, (self.model.get_block.x2 *
+                              TILE_SIZE, self.model.get_block.y2 * TILE_SIZE))
 
     def draw_node(self, node: BlockState):
         if node.isStanding():
