@@ -40,6 +40,7 @@ class GameController:
 
                 self.game_view.draw_maze()
                 self.game_view.draw_block()
+                self.game_view.draw_nr_moves()
 
                 if (pygame.key.get_pressed()[pygame.K_h]):
                     sol_node = hint_call(algo[2], self.game_model.block)()
@@ -59,7 +60,7 @@ class GameController:
                 for key, func in keys:
                     if pygame.key.get_pressed()[key] and not already_moved:
                         already_moved = True
-
+                        self.game_model.increment_nr_moves()
                         new_block = func(self.game_model.get_block)
                         if (new_block):
                             self.game_model.set_block(new_block)                  
@@ -77,6 +78,7 @@ class GameController:
 
                 clock.tick(30)
 
+            self.game_model.reset_nr_moves()
             self.game_model.reset_block()
             bg_music.stop()
 

@@ -10,6 +10,7 @@ class GameModel:
         self.maze = maze
         start_x, start_y = self.find_start_end_nodes(maze)
         self.block = BlockState(start_x, start_y, start_x, start_y, maze)
+        self.nr_moves = 0
 
     @staticmethod
     def find_start_end_nodes(maze):
@@ -43,3 +44,13 @@ class GameModel:
         start_x, start_y = self.find_start_end_nodes(self.block.maze)
         self.block = BlockState(
             start_x, start_y, start_x, start_y, self.block.maze)
+
+    @property
+    def get_nr_moves(self):
+        return self.nr_moves
+    
+    def increment_nr_moves(self):
+        self.nr_moves += 1
+
+    def reset_nr_moves(self):
+        self.nr_moves = 0
