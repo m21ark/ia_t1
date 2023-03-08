@@ -24,10 +24,14 @@ class PlayGroundMenu:
         x, y = GameModel.find_start_end_nodes(game_maps[self.maze][1])
         self.initial_pos = BlockState(x, y, x, y, game_maps[self.maze][1])
 
-        self.algs = [('Dfs', lambda: depth_first_search(self.initial_pos, goal_block_state, child_block_states), depth_first_search),
-                     ('Bfs', lambda: breadth_first_search(self.initial_pos,
+        self.algs = [('DFS', lambda: depth_first_search(self.initial_pos, goal_block_state, child_block_states), depth_first_search),
+                     ('BFS', lambda: breadth_first_search(self.initial_pos,
                       goal_block_state, child_block_states), breadth_first_search),
-                     ('Iterative deepening(200 depth)', lambda: iterative_deepening_search(self.initial_pos, goal_block_state, child_block_states, 300), iterative_deepening_search)]  # ilustrative
+                     ('Iterative deepening', lambda: iterative_deepening_search(
+                         self.initial_pos, goal_block_state, child_block_states, 200), iterative_deepening_search),
+                     ('Greedy Search', lambda: greedy_search(self.initial_pos,
+                      goal_block_state, child_block_states, None), greedy_search),
+                     ('A* Search', lambda:  a_star_search(initial_state, goal_state_func, child_block_states, None), a_star_search)]  # ilustrative
 
         self.__selections()
 
@@ -61,6 +65,7 @@ class PlayGroundMenu:
             game_maps,  # ilustrative
             onchange=self.__on_maze_change,
             default=self.maze,
+            selection_box_width=300,
         )
 
         self.__algorithm_sel = self.__playground_menu.add.dropselect(
@@ -68,6 +73,7 @@ class PlayGroundMenu:
             self.algs,
             onchange=self.__on_algorithm_change,
             default=self.algorithm,
+            selection_box_width=350,
         )
 
         self.ai = self.__playground_menu.add.button('AI-Solver', GameController(GameModel(

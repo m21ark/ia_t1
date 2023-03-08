@@ -120,6 +120,13 @@ class GameController:
                 already_moved.append(node)
                 pygame.display.update()
 
-                pygame.time.delay(50)
-
+                pygame.time.delay(60)
+            
+            # wait for any key press to continue
+            pygame.event.clear()
+            while True:
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN:
+                    break
+            
         return ia_solver_run

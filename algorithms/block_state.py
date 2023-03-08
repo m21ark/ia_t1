@@ -55,9 +55,17 @@ class BlockState:
         if self.maze[self.x + self.y * MATRIX_COL] == BLOCK_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == BLOCK_NODE:
             return False  # blocked
 
+        if bool(self.maze[self.x + self.y * MATRIX_COL] == END_NODE) ^ bool(self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE):
+            return False # broken end node
+
         a = self.maze[self.x + self.y * MATRIX_COL] not in INVALID_NODES
         b = self.maze[self.x2 + self.y2 * MATRIX_COL] not in INVALID_NODES
         return a and b
 
-    def checkIfGoal(self):  # and ou or ????
-        return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
+    def checkIfGoal(self):
+        return self.maze[self.x + self.y * MATRIX_COL] == END_NODE and self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
+
+    def heuristic(self):
+        if(self.checkIfGoal()):
+            return 0
+        return 
