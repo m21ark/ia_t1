@@ -35,23 +35,22 @@ class GameController:
                         quit()
                     if event.type == pygame.KEYUP:
                         already_moved = False
-                        
 
                 if (pygame.key.get_pressed()[pygame.K_q]):
                     running = False
 
                 self.game_view.draw_maze()
                 self.game_view.draw_block()
+                self.game_view.draw_nr_moves()
 
                 if (pygame.key.get_pressed()[pygame.K_h] and not already_moved and not hint_move):
-                    print("HERE")
+                    # print("Computing hint...")
                     sol_node = hint_call(algo[2], self.game_model.block)()
                     hint_move = sol_node.get_path()[1]
                     already_moved = True
 
                 if hint_move:
                     self.game_view.draw_node(hint_move)
-        
 
                 time_elapsed = datetime.now() - start_time
 
@@ -68,6 +67,7 @@ class GameController:
                         already_moved = True
                         hint_move = None
 
+                        self.game_model.increment_nr_moves()
                         new_block = func(self.game_model.get_block)
                         if (new_block):
                             self.game_model.set_block(new_block)
@@ -85,6 +85,7 @@ class GameController:
 
                 clock.tick(30)
 
+            self.game_model.reset_nr_moves()
             self.game_model.reset_block()
             bg_music.stop()
 
@@ -97,7 +98,7 @@ class GameController:
             sol_node = algo[1]()
             path = sol_node.get_path()
 
-            print("Running sol", len(path))
+            # print("Running sol", len(path))
             already_moved = []
 
             for node in path:

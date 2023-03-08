@@ -53,6 +53,15 @@ class GameView:
                 self.surface.blit(
                     tile, (row * TILE_SIZE, col * TILE_SIZE))
 
+    def draw_nr_moves(self):
+        font = pygame.font.SysFont('Arial Bold', 30)
+        nr_moves_str = "Moves: " + str(self.model.get_nr_moves)
+        nr_moves_text = font.render(
+            nr_moves_str, False, (255, 255, 255))
+        nr_moves_rect = nr_moves_text.get_rect()
+        nr_moves_rect.topright = (screen_width - 10, 40)
+        self.surface.blit(nr_moves_text, nr_moves_rect)
+
     @staticmethod
     def draw_showoff(maze):
         for x in range(MATRIX_COL):
