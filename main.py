@@ -7,6 +7,7 @@ from model.game_model import *
 
 
 def main():
+
     pygame.init()
 
     obj_main_menu = MainMenu(WINDOW_SIZE)
@@ -30,4 +31,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print("Exception caught:", e)
+        pygame.quit()

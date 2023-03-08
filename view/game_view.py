@@ -52,7 +52,7 @@ class GameView:
                 # Draw the scaled tile on the screen
                 self.surface.blit(
                     tile, (row * TILE_SIZE, col * TILE_SIZE))
-                
+
     def draw_nr_moves(self):
         font = pygame.font.SysFont('Arial Bold', 30)
         nr_moves_str = "Moves: " + str(self.model.get_nr_moves)

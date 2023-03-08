@@ -48,7 +48,7 @@ class GameModel:
     @property
     def get_nr_moves(self):
         return self.nr_moves
-    
+
     def increment_nr_moves(self):
         self.nr_moves += 1
 
