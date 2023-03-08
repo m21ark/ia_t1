@@ -31,8 +31,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        print("Exception caught:", e)
-        pygame.quit()
+    main()
