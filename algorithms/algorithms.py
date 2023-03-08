@@ -81,7 +81,7 @@ class TreeNode:
             node = node.parent
         path.reverse()
         return path
-    
+
     def __eq__(self, other):
         if isinstance(other, TreeNode):
             return self.state == other.state and self.depth == other.depth

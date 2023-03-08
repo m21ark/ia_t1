@@ -17,11 +17,12 @@ class GameController:
 
             pygame.mixer.init()
             bg_music = pygame.mixer.Sound('assets/tense_music.wav')
-            bg_music.play() # loops=-1
-            
+            bg_music.play()  # loops=-1
+
             running = True
             clock = pygame.time.Clock()
             already_moved = False
+            hint_move = None
 
             keys = [(pygame.K_LEFT, moveLeft), (pygame.K_RIGHT, moveRight),
                     (pygame.K_UP, moveUp), (pygame.K_DOWN, moveDown)]
@@ -34,6 +35,7 @@ class GameController:
                         quit()
                     if event.type == pygame.KEYUP:
                         already_moved = False
+                        
 
                 if (pygame.key.get_pressed()[pygame.K_q]):
                     running = False
@@ -41,10 +43,15 @@ class GameController:
                 self.game_view.draw_maze()
                 self.game_view.draw_block()
 
-                if (pygame.key.get_pressed()[pygame.K_h]):
+                if (pygame.key.get_pressed()[pygame.K_h] and not already_moved and not hint_move):
+                    print("HERE")
                     sol_node = hint_call(algo[2], self.game_model.block)()
-                    move = sol_node.get_path()[1]
-                    self.game_view.draw_node(move)
+                    hint_move = sol_node.get_path()[1]
+                    already_moved = True
+
+                if hint_move:
+                    self.game_view.draw_node(hint_move)
+        
 
                 time_elapsed = datetime.now() - start_time
 
@@ -59,10 +66,11 @@ class GameController:
                 for key, func in keys:
                     if pygame.key.get_pressed()[key] and not already_moved:
                         already_moved = True
+                        hint_move = None
 
                         new_block = func(self.game_model.get_block)
                         if (new_block):
-                            self.game_model.set_block(new_block)                  
+                            self.game_model.set_block(new_block)
                         else:
                             running = False  # add menu for game finish and pass the  new_block to know the end state
                             bg_music.stop()

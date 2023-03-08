@@ -15,8 +15,8 @@ class BlockState:
         if isinstance(other, self.__class__):
             return (self.x, self.y, self.x2, self.y2) == \
                    (other.x, other.y, other.x2, other.y2) \
-                   or (self.x == other.x2 and self.y == other.y2 and self.x2 == other.x and self.y2 == other.y)
-        
+                or (self.x == other.x2 and self.y == other.y2 and self.x2 == other.x and self.y2 == other.y)
+
         return False
 
     def __ne__(self, other):
