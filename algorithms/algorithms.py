@@ -1,6 +1,7 @@
 from collections import deque
 from algorithms.block_state import *
 from model.game_model import GameModel
+import math
 
 class TreeNode:
     def __init__(self, state, parent=None):
@@ -262,13 +263,27 @@ def manhattan_distance_heuristic(node): # TODO: uma heuristica que beneficie num
     return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y)
 
 
+def chebyshev_distance_heuristic(node):
+    end_x, end_y = GameModel.GOAL
+    return max(abs(min(node.state.x, node.state.x2) - end_x), abs(min(node.state.y, node.state.y2) - end_y))
+
+
+def euclidean_distance_heuristic(node):
+    end_x, end_y = GameModel.GOAL
+    return math.sqrt((min(node.state.x, node.state.x2) - end_x) ** 2 + (min(node.state.y, node.state.y2) - end_y) ** 2)
+
+
 def hint_call(alg, blockSt: BlockState):
     hint_call.dic = {
         depth_first_search: lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
         breadth_first_search: lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
         iterative_deepening_search: lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
         greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
-        a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
+        a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
+        # greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
+        # a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
+        # greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
+        # a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic) .... TODO: add something to the left side of the dic to this to work
     }
 
     return hint_call.dic[alg]
