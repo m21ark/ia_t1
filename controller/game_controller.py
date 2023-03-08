@@ -44,8 +44,7 @@ class GameController:
                 self.game_view.draw_nr_moves()
 
                 if (pygame.key.get_pressed()[pygame.K_h] and not already_moved and not hint_move):
-                    # print("Computing hint...")
-                    sol_node = hint_call(algo[2], self.game_model.block)()
+                    sol_node = hint_call(algo[0], self.game_model.block)()
                     hint_move = sol_node.get_path()[1]
                     already_moved = True
 

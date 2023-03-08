@@ -275,15 +275,15 @@ def euclidean_distance_heuristic(node):
 
 def hint_call(alg, blockSt: BlockState):
     hint_call.dic = {
-        depth_first_search: lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
-        breadth_first_search: lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
-        iterative_deepening_search: lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
-        greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
-        a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
-        # greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
-        # a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
-        # greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        # a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic) .... TODO: add something to the left side of the dic to this to work
+        'DFS': lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
+        'BFS': lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
+        'Iterative deepening': lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
+        'Greedy (manhattan)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
+        'A* (manhattan)' : lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
+        'Greedy (chebyshev)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
+        'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
+        'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
+        'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
     }
 
     return hint_call.dic[alg]
