@@ -122,11 +122,11 @@ class GameController:
 
                 pygame.time.delay(60)
             
-            # wait for Q press to continue
+            # wait for key press
             pygame.event.clear()
             while True:
                 event = pygame.event.wait()
-                if pygame.key.get_pressed()[pygame.K_q]:
+                if event.type == pygame.KEYDOWN:
                     break
             
         return ia_solver_run

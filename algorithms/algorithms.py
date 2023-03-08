@@ -1,6 +1,6 @@
 from collections import deque
 from algorithms.block_state import *
-
+from model.game_model import GameModel
 
 class TreeNode:
     def __init__(self, state, parent=None):
@@ -257,14 +257,18 @@ def moveRight(self):
         return None
     return new_st
 
+def manhattan_distance_heuristic(node): # TODO: uma heuristica que beneficie numeros pares de jogadas, tem de haver duas jogadas para ficar de pé ... atenção à depht != nr_jogadas 
+    end_x, end_y = GameModel.GOAL
+    return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y)
+
 
 def hint_call(alg, blockSt: BlockState):
     hint_call.dic = {
         depth_first_search: lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
         breadth_first_search: lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
         iterative_deepening_search: lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
-        greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, blockSt.heuristic),
-        a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, blockSt.heuristic)
+        greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
+        a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
     }
 
     return hint_call.dic[alg]

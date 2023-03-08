@@ -5,7 +5,7 @@ from model.sample_mazes import *
 
 class GameModel:
     sel_maze = game_maps[0][1]
-
+    GOAL = (0,0)
     def __init__(self, maze):
         self.maze = maze
         start_x, start_y = self.find_start_end_nodes(maze)
@@ -28,6 +28,8 @@ class GameModel:
             for x in range(MATRIX_ROW):
                 if get_node(x, y) == START_NODE:
                     return x, y
+                elif get_node(x, y) == END_NODE:
+                    GameModel.GOAL = (x,y)
 
     @property
     def get_maze(self):

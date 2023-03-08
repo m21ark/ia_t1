@@ -30,8 +30,8 @@ class PlayGroundMenu:
                      ('Iterative deepening', lambda: iterative_deepening_search(
                          self.initial_pos, goal_block_state, child_block_states, 200), iterative_deepening_search),
                      ('Greedy Search', lambda: greedy_search(self.initial_pos,
-                      goal_block_state, child_block_states, self.initial_pos.heuristic), greedy_search),
-                     ('A* Search', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, self.initial_pos.heuristic), a_star_search)]  # ilustrative
+                      goal_block_state, child_block_states, manhattan_distance_heuristic), greedy_search),
+                     ('A* Search', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, manhattan_distance_heuristic), a_star_search)]  # ilustrative
 
         self.__selections()
 

@@ -65,8 +65,3 @@ class BlockState:
     def checkIfGoal(self):
         return self.maze[self.x + self.y * MATRIX_COL] == END_NODE and self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
 
-    # doesnt do anything
-    def heuristic(self, node):
-        if(self.checkIfGoal()):
-            return 0
-        return 1
