@@ -12,18 +12,10 @@ KILLER_NODE = 7
 
 
 TILE_SIZE = 28
-
-"""
-xs - 32
-s - 40
-m - 64
-l - 128
-"""
-
-tileset_image = pygame.image.load('assets/tileset_xs_rica.png')
 ROW = 30
 COL = 30
 
+tileset_image = pygame.image.load('assets/tileset.png')
 tile_positions = [(1, 9),  # EmptyNode
                   (12, 6),  # StartNode
                   (12, 9),  # EndNode
