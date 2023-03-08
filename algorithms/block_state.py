@@ -13,14 +13,21 @@ class BlockState:
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.__dict__ == other.__dict__
+            return (self.x, self.y, self.x2, self.y2) == \
+                   (other.x, other.y, other.x2, other.y2) \
+                   or (self.x == other.x2 and self.y == other.y2 and self.x2 == other.x and self.y2 == other.y)
+        
         return False
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __hash__(self):
-        return hash((self.x, self.y, self.x2, self.y2))
+        x1 = min(self.x, self.x2)
+        x3 = max(self.x, self.x2)
+        y1 = min(self.y, self.y2)
+        y3 = max(self.y, self.y2)
+        return hash((x1, y1, x3, y3))
 
     def __str__(self):
         return f"{self.x} , {self.y} : {self.x2} , {self.y2}"

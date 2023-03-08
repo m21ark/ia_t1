@@ -56,7 +56,7 @@ PURPLE = (255, 0, 255)  # KillerNode
 LIGHT_BLUE = (133, 201, 232)  # PlayerNode
 BG_COLOR = (40, 41, 35)
 
-INVALID_NODES = [KILLER_NODE, EMPTY_NODE]
+INVALID_NODES = [BLOCK_NODE, KILLER_NODE, EMPTY_NODE]
 
 WINDOW = pygame.display.set_mode(WINDOW_SIZE, pygame.RESIZABLE)
 pygame.display.set_caption(title)

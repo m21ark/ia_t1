@@ -81,6 +81,14 @@ class TreeNode:
             node = node.parent
         path.reverse()
         return path
+    
+    def __eq__(self, other):
+        if isinstance(other, TreeNode):
+            return self.state == other.state and self.depth == other.depth
+        return False
+
+    def __hash__(self):
+        return hash((self.state, self.depth))
 
 
 def breadth_first_search(initial_state, goal_state_func, operators_func):
@@ -131,12 +139,11 @@ def depth_limited_search(initial_state, goal_state_func, operators_func, depth_l
     stack = [root]
     visited = set()
     while stack:
-
         node = stack.pop()
-        if node.state in visited:
+        if node in visited:
             continue
 
-        visited.add(node.state)
+        visited.add(node)
 
         if goal_state_func(node.state):
             return node

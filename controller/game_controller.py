@@ -62,7 +62,7 @@ class GameController:
 
                         new_block = func(self.game_model.get_block)
                         if (new_block):
-                            self.game_model.set_block(new_block)
+                            self.game_model.set_block(new_block)                  
                         else:
                             running = False  # add menu for game finish and pass the  new_block to know the end state
                             bg_music.stop()
@@ -89,6 +89,7 @@ class GameController:
             sol_node = algo[1]()
             path = sol_node.get_path()
 
+            print("Running sol", len(path))
             already_moved = []
 
             for node in path:
