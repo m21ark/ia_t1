@@ -262,7 +262,9 @@ def hint_call(alg, blockSt: BlockState):
     hint_call.dic = {
         depth_first_search: lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
         breadth_first_search: lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
-        iterative_deepening_search: lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 300),
+        iterative_deepening_search: lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
+        greedy_search: lambda: greedy_search(blockSt, goal_block_state, child_block_states, blockSt.heuristic),
+        a_star_search: lambda: a_star_search(blockSt, goal_block_state, child_block_states, blockSt.heuristic)
     }
 
     return hint_call.dic[alg]
