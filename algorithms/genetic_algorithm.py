@@ -54,17 +54,17 @@ def evaluate_solution(solution):
     return -(len(solution) + 1000)
     
 
-def generate_random_solution():
-    st = BlockState(3,3,3,3, maze_1)
+def generate_random_solution(init):
+    st = init
     s = random_dfs(st, goal_block_state, child_block_states)
     solution = s.get_path()
     return solution
 
 
-def generate_population(population_size):
+def generate_population(init,population_size):
     solutions = []
     for i in range(population_size):
-        solutions.append(generate_random_solution())
+        solutions.append(generate_random_solution(init))
     return solutions
 
 def print_population(population):
@@ -126,8 +126,8 @@ def mutate(solution):
     return sol
        
 
-def genetic_algorithm(num_iterations, population_size, crossover_func, mutation_func, log=False):
-    population = generate_population(population_size)
+def genetic_algorithm(init,num_iterations, population_size, crossover_func, mutation_func, log=False):
+    population = generate_population(init, population_size)
     
     
     best_solution = population[0] # Initial solution

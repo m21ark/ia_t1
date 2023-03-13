@@ -276,7 +276,7 @@ def euclidean_distance_heuristic(node):
 
 
 def hint_call(alg, blockSt: BlockState):
-    from algorithms.genetic_algorithm import genetic_algorithm, crossover, mutate
+    from algorithms.genetic_algorithm import genetic_algorithm, crossover, mutate, random_dfs
     hint_call.dic = {
         'DFS': lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
         'BFS': lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
@@ -287,7 +287,8 @@ def hint_call(alg, blockSt: BlockState):
         'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
         'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'Genetic' : lambda: genetic_algorithm(1000, 50, crossover, mutate, False), 
+        'Genetic' : lambda: genetic_algorithm(blockSt,1000, 50, crossover, mutate, False), 
+        'Random DFS': lambda: random_dfs(blockSt, goal_block_state, child_block_states),
     }
 
     return hint_call.dic[alg]

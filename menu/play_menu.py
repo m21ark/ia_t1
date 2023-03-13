@@ -38,7 +38,7 @@ class PlayGroundMenu:
                      ('Greedy (euclidean)', lambda: greedy_search(self.initial_pos,
                       goal_block_state, child_block_states, euclidean_distance_heuristic), greedy_search),
                      ('A* (euclidean)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, euclidean_distance_heuristic), a_star_search),
-                     ('Genetic', lambda: genetic_algorithm(1000, 50, crossover, mutate, False), genetic_algorithm),
+                     ('Genetic', lambda: genetic_algorithm(self.initial_pos,1000, 50, crossover, mutate, False), genetic_algorithm),
                      ('Random DFS',lambda: random_dfs(self.initial_pos, goal_block_state, child_block_states),random_dfs)] 
 
                     
