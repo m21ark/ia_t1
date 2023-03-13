@@ -2,6 +2,7 @@ from collections import deque
 from algorithms.block_state import *
 from model.game_model import GameModel
 import math
+import random
 
 class TreeNode:
     def __init__(self, state, parent=None):
@@ -63,6 +64,31 @@ def breadth_first_search(initial_state, goal_state_func, operators_func):
 
     return None
 
+
+def random_dfs(initial_state, goal_state_func, operators_func):
+    root = TreeNode(initial_state)   # create the root node in the search tree
+    stack = [root]   # initialize the queue to store the nodes
+
+    visited = set()
+    while stack:
+        node = stack.pop()   # get first element in the queue
+        
+        if node.state in visited:
+            continue
+
+        visited.add(node.state)
+
+        if goal_state_func(node.state):   # check goal state
+            return node
+
+        # random permutation
+        l = [TreeNode(state, node)
+                     for state in operators_func(node.state)]
+        random.shuffle(l)
+
+        stack.extend(l)
+    
+    return None
 
 def depth_first_search(initial_state, goal_state_func, operators_func):
     root = TreeNode(initial_state)
