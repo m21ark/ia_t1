@@ -16,14 +16,14 @@ ROW = 30
 COL = 30
 
 tileset_image = pygame.image.load('assets/tileset.png')
-tile_positions = [(1, 9),  # EmptyNode
-                  (12, 6),  # StartNode
-                  (12, 9),  # EndNode
-                  (15, 0),  # PathNode
-                  (0, 8),  # PlayerNode
-                  (0, 8),  # PlayerNode
+tile_positions = [(11, 3),  # EmptyNode
+                  (13, 6),  # StartNode
+                  (15, 7),  # EndNode
+                  (0, 8),  # PathNode
+                  (15, 11),  # PlayerNode
+                  (15, 11),  # PlayerNode
                   (11, 9),  # BlockNode
-                  (3, 9)]  # KillerNode
+                  (0, 9)]  # KillerNode
 
 
 # Define the window size and block size

@@ -45,15 +45,14 @@ class GameView:
         
         for row in range(MATRIX_ROW):
             for col in range(MATRIX_COL):
-                if self.model.get_maze[row + col * MATRIX_COL] != EMPTY_NODE:
-                    # Get the tile position for the current cell
-                    tile_position = tile_positions[self.model.get_maze[row + col * MATRIX_COL]]
-                    # Extract the tile from the tileset image
-                    tile = tileset_image.subsurface(pygame.Rect(
-                        tile_position[0] * TILE_SIZE, tile_position[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE))
-                    # Draw the scaled tile on the screen
-                    self.surface.blit(
-                        tile, (row * TILE_SIZE, col * TILE_SIZE))
+                # Get the tile position for the current cell
+                tile_position = tile_positions[self.model.get_maze[row + col * MATRIX_COL]]
+                # Extract the tile from the tileset image
+                tile = tileset_image.subsurface(pygame.Rect(
+                    tile_position[0] * TILE_SIZE, tile_position[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+                # Draw the scaled tile on the screen
+                self.surface.blit(
+                    tile, (row * TILE_SIZE, col * TILE_SIZE))
 
     def draw_nr_moves(self):
         font = pygame.font.SysFont('Arial Bold', 30)
