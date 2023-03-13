@@ -42,16 +42,18 @@ class GameView:
             return BLACK
 
     def draw_maze(self):
+        
         for row in range(MATRIX_ROW):
             for col in range(MATRIX_COL):
-                # Get the tile position for the current cell
-                tile_position = tile_positions[self.model.get_maze[row + col * MATRIX_COL]]
-                # Extract the tile from the tileset image
-                tile = tileset_image.subsurface(pygame.Rect(
-                    tile_position[0] * TILE_SIZE, tile_position[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE))
-                # Draw the scaled tile on the screen
-                self.surface.blit(
-                    tile, (row * TILE_SIZE, col * TILE_SIZE))
+                if self.model.get_maze[row + col * MATRIX_COL] != EMPTY_NODE:
+                    # Get the tile position for the current cell
+                    tile_position = tile_positions[self.model.get_maze[row + col * MATRIX_COL]]
+                    # Extract the tile from the tileset image
+                    tile = tileset_image.subsurface(pygame.Rect(
+                        tile_position[0] * TILE_SIZE, tile_position[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+                    # Draw the scaled tile on the screen
+                    self.surface.blit(
+                        tile, (row * TILE_SIZE, col * TILE_SIZE))
 
     def draw_nr_moves(self):
         font = pygame.font.SysFont('Arial Bold', 30)
@@ -114,11 +116,11 @@ class GameView:
         if new_block != None and new_block.checkIfGoal():
             wining_sound = pygame.mixer.Sound('assets/winning_sound.wav')
             wining_sound.play()
-            a = menu.add.button('You Win!!', print_r)
+            a = menu.add.label('You Win!!')
         else:
             losing_sound = pygame.mixer.Sound('assets/losing_sound.wav')
             losing_sound.play()
-            a = menu.add.button('You Lost!!', print_r)
+            a = menu.add.label('You Lost!!')
 
         while run:
 
