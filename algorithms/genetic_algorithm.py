@@ -35,33 +35,23 @@ def crossover(solution_1, solution_2):
     inter_random_element = random.sample(intersection, 1)[0]
     child_1 = []
     child_2 = []
+    cut_point_2 = solution_2.index(inter_random_element)
+    cut_point_1 = solution_1.index(inter_random_element)
 
-    inter = False
-    for i in range(len(solution_1)):
-        if not inter and solution_1[i] == inter_random_element:
-            child_1.append(solution_1[i])
-            inter = True
-        else:
-            try:
-                child_1.append(solution_2[i])
-            except:
-                break
+    child_1.extend(solution_1[:cut_point_1])
+    child_1.extend(solution_2[cut_point_2:])
     
-    inter = False
-    for i in range(len(solution_2)):
-        if not inter and solution_2[i] == inter_random_element:
-            child_2.append(solution_2[i])
-            inter = True
-        else:
-            try:
-                child_2.append(solution_1[i])
-            except:
-                break
+    child_2.extend(solution_2[:cut_point_2])
+    child_2.extend(solution_1[cut_point_1:])
 
     return child_1, child_2
 
 def evaluate_solution(solution):
-    return -len(solution)
+    
+    if goal_block_state(solution[-1]):
+        return -len(solution)
+
+    return -(len(solution) + 1000)
     
 
 def generate_random_solution():
@@ -124,6 +114,7 @@ def roulette_select(population):
 
 
 def mutate(solution):
+
     index = np.random.randint(0, len(solution))
  
     sol = solution[:index]
@@ -150,10 +141,14 @@ def genetic_algorithm(num_iterations, population_size, crossover_func, mutation_
     while(num_iterations > 0):
         new_population = []
         generation_no += 1
-        
+        yield best_solution, best_solution_generation # Yield the best solution found so far
+
+        # Restores the population to its original solution ... to find optimal generational solutions
+        best_solution = population[0] # Initial solution
+        best_score = evaluate_solution(population[0]) 
         # Selection
         for i in range(0, population_size):
-            tournment_winner_sol = tournament_select(population, 4)
+            tournment_winner_sol = tournament_select(population, 3)
             roulette_winner_sol = roulette_select(population)
             
             # Next generation Crossover and Mutation
@@ -181,7 +176,6 @@ def genetic_algorithm(num_iterations, population_size, crossover_func, mutation_
                 print(f"Solution: {best_solution}, score: {best_score}")
                 print_population(population)
             print(f"score: {best_score}")
-            yield best_solution, best_solution_generation # Yield the best solution found so far
         else:
             num_iterations -= 1
     while True:

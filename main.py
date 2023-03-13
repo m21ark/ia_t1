@@ -32,19 +32,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    c = genetic_algorithm(1000, 50, crossover, mutate)
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-
-

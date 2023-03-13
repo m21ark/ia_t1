@@ -96,8 +96,9 @@ class GameController:
             path = next(sol_node)[0]
 
             if path == None:
-                return
-
+                break
+            pygame.time.delay(60)
+            # TODO: ADD GENERATION NR
             already_moved = []
 
             for node in path:
@@ -119,15 +120,16 @@ class GameController:
                 already_moved.append(node)
                 pygame.display.update()
 
-                pygame.time.delay(60)
+                pygame.time.delay(30)
 
-            # wait for key press
-            pygame.event.clear()
-            while True:
-                event = pygame.event.wait()
-                if event.type == pygame.KEYDOWN:
-                    break
-        return
+        # wait for key press
+        pygame.event.clear()
+        ## TODO: DISPLAY A MESSAGE TO SAY THAT THE GENERATION IS THE LAST
+        while True:
+            event = pygame.event.wait()
+            if event.type == pygame.KEYDOWN:
+                break
+
 
     def ia_solver_start(self, algo):
 
