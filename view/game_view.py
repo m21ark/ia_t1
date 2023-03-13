@@ -114,11 +114,11 @@ class GameView:
         if new_block != None and new_block.checkIfGoal():
             wining_sound = pygame.mixer.Sound('assets/winning_sound.wav')
             wining_sound.play()
-            a = menu.add.button('You Win!!', print_r)
+            a = menu.add.label('You Win!!')
         else:
             losing_sound = pygame.mixer.Sound('assets/losing_sound.wav')
             losing_sound.play()
-            a = menu.add.button('You Lost!!', print_r)
+            a = menu.add.label('You Lost!!')
 
         while run:
 
