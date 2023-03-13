@@ -4,7 +4,7 @@ from model.sample_mazes import *
 from menu.main_menu import MainMenu
 from view.game_view import GameView
 from model.game_model import *
-
+from algorithms.genetic_algorithm import *
 
 def main():
 
@@ -32,3 +32,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # genetic_algorithm(1000, 50, crossover, mutate, False)
