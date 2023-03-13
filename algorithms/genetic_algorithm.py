@@ -61,29 +61,6 @@ def crossover(solution_1, solution_2):
     return child_1, child_2
 
 def evaluate_solution(solution):
-    # num_incompatibilities = 0
-    # # TODO: USAR HEURISTICA
-    # dic = {}
-    # for i in range(len(solution)):
-    #     if solution[i] not in dic:
-    #         dic[solution[i]] = 0
-    #     else:
-    #         dic[solution[i]] += 1
-# 
-    # for key in dic:
-    #     if dic[key] > 1:
-    #         num_incompatibilities += dic[key]
-    # 
-    # contais_end = False
-    # for i in range(len(solution)):
-    #     if goal_block_state(solution[i]):
-    #         contais_end = True
-    #         break
-    # 
-    # if not contais_end:
-    #     num_incompatibilities += 1000
-    # 
-    # return -num_incompatibilities
     return -len(solution)
     
 
@@ -146,21 +123,6 @@ def roulette_select(population):
     return population[-1]
 
 
-#def mutate_solution_1(solution):
-#    index_1 = np.random.randint(0, len(solution))
-#    index_2 = (index_1 + np.random.randint(0, len(solution))) % (len(solution) - 1) # Efficient way to generate a non-repeated index
-#    solution[index_1], solution[index_2] = solution[index_2], solution[index_1]
-#    return solution
-#
-#def mutate_solution_2(solution):
-#    index = np.random.randint(0, len(solution))
-#    solution[index] = np.random.randint(1, slots + 1)
-#    return solution
-
-# def mutate_solution_3(solution):
-#     return (get_neighbor_solution3(solution))
-# 
-
 def mutate(solution):
     index = np.random.randint(0, len(solution))
  
@@ -175,6 +137,7 @@ def mutate(solution):
 
 def genetic_algorithm(num_iterations, population_size, crossover_func, mutation_func, log=False):
     population = generate_population(population_size)
+    
     
     best_solution = population[0] # Initial solution
     best_score = evaluate_solution(population[0])
@@ -218,11 +181,10 @@ def genetic_algorithm(num_iterations, population_size, crossover_func, mutation_
                 print(f"Solution: {best_solution}, score: {best_score}")
                 print_population(population)
             print(f"score: {best_score}")
+            yield best_solution, best_solution_generation # Yield the best solution found so far
         else:
             num_iterations -= 1
-        
-    print(f"  Final solution: {best_solution}, score: {best_score}")
-    print(f"  Found on generation {best_solution_generation}")
-    
-    return best_solution
+    while True:
+        yield None, None
+
 

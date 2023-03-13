@@ -3,6 +3,7 @@ from model.game_model import *
 from algorithms.algorithms import *
 import pygame.mixer
 from datetime import datetime
+import types
 
 
 class GameController:
@@ -90,16 +91,63 @@ class GameController:
 
         return real_start
 
+    def ga_solver_show(self, sol_node):
+        while True:
+            path = next(sol_node)[0]
+
+            if path == None:
+                return
+
+            already_moved = []
+
+            for node in path:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+
+                if pygame.key.get_pressed()[pygame.K_q]:
+                    return
+                
+                self.game_view.draw_maze()
+                self.game_model.set_block(node)
+
+                for n in already_moved:
+                    self.game_view.draw_node(n)
+
+                self.game_view.draw_block()
+
+                already_moved.append(node)
+                pygame.display.update()
+
+                pygame.time.delay(60)
+
+            # wait for key press
+            pygame.event.clear()
+            while True:
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN:
+                    break
+        return
+
     def ia_solver_start(self, algo):
 
         def ia_solver_run():
 
             sol_node = algo[1]()
-            path =  sol_node.get_path() if type(sol_node) != list else sol_node
 
-            # print("Running sol", len(path))
+            gen = isinstance(sol_node, types.GeneratorType)
+            
+            if gen:
+                self.ga_solver_show(sol_node)
+                return
+
+            path =  sol_node.get_path()
+
+
+
+
             already_moved = []
-
+            
             for node in path:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
