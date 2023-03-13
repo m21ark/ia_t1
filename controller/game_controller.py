@@ -95,7 +95,7 @@ class GameController:
         def ia_solver_run():
 
             sol_node = algo[1]()
-            path = sol_node.get_path()
+            path =  sol_node.get_path() if type(sol_node) != list else sol_node
 
             # print("Running sol", len(path))
             already_moved = []

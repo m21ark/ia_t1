@@ -2,7 +2,7 @@ import pygame_menu
 from controller.game_controller import *
 from model.game_model import *
 from model.sample_mazes import *
-
+from algorithms.genetic_algorithm import *
 
 class PlayGroundMenu:
 
@@ -37,7 +37,8 @@ class PlayGroundMenu:
                      ('A* (chebyshev)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, chebyshev_distance_heuristic), a_star_search),
                      ('Greedy (euclidean)', lambda: greedy_search(self.initial_pos,
                       goal_block_state, child_block_states, euclidean_distance_heuristic), greedy_search),
-                     ('A* (euclidean)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, euclidean_distance_heuristic), a_star_search)] 
+                     ('A* (euclidean)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, euclidean_distance_heuristic), a_star_search),
+                     ('Genetic', lambda: genetic_algorithm(1000, 50, crossover, mutate, False), genetic_algorithm)] 
 
                     
         self.__selections()

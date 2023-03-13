@@ -32,4 +32,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # genetic_algorithm(1000, 50, crossover, mutate, False)
+

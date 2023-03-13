@@ -3,6 +3,31 @@ from model.sample_mazes import *
 from algorithms.algorithms import *
 import random
 
+def random_dfs(initial_state, goal_state_func, operators_func):
+    root = TreeNode(initial_state)   # create the root node in the search tree
+    stack = [root]   # initialize the queue to store the nodes
+
+    visited = set()
+    while stack:
+        node = stack.pop()   # get first element in the queue
+        
+        if node.state in visited:
+            continue
+
+        visited.add(node.state)
+
+        if goal_state_func(node.state):   # check goal state
+            return node
+
+        # random permutation
+        l = [TreeNode(state, node)
+                     for state in operators_func(node.state)]
+        random.shuffle(l)
+
+        stack.extend(l)
+    
+    return None
+
 def crossover(solution_1, solution_2):
     
     intersection = set(solution_1).intersection(solution_2)

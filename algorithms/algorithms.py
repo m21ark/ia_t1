@@ -2,7 +2,6 @@ from collections import deque
 from algorithms.block_state import *
 from model.game_model import GameModel
 import math
-import random
 
 class TreeNode:
     def __init__(self, state, parent=None):
@@ -65,30 +64,7 @@ def breadth_first_search(initial_state, goal_state_func, operators_func):
     return None
 
 
-def random_dfs(initial_state, goal_state_func, operators_func):
-    root = TreeNode(initial_state)   # create the root node in the search tree
-    stack = [root]   # initialize the queue to store the nodes
 
-    visited = set()
-    while stack:
-        node = stack.pop()   # get first element in the queue
-        
-        if node.state in visited:
-            continue
-
-        visited.add(node.state)
-
-        if goal_state_func(node.state):   # check goal state
-            return node
-
-        # random permutation
-        l = [TreeNode(state, node)
-                     for state in operators_func(node.state)]
-        random.shuffle(l)
-
-        stack.extend(l)
-    
-    return None
 
 def depth_first_search(initial_state, goal_state_func, operators_func):
     root = TreeNode(initial_state)
@@ -300,6 +276,7 @@ def euclidean_distance_heuristic(node):
 
 
 def hint_call(alg, blockSt: BlockState):
+    from algorithms.genetic_algorithm import genetic_algorithm, crossover, mutate
     hint_call.dic = {
         'DFS': lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
         'BFS': lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
@@ -309,7 +286,8 @@ def hint_call(alg, blockSt: BlockState):
         'Greedy (chebyshev)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
+        'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
+        'Genetic' : lambda: genetic_algorithm(1000, 50, crossover, mutate, False), 
     }
 
     return hint_call.dic[alg]
