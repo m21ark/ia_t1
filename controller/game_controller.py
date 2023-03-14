@@ -92,13 +92,22 @@ class GameController:
         return real_start
 
     def ga_solver_show(self, sol_node):
+        curr_gen = 0
         while True:
-            path = next(sol_node)[0]
+            self.game_view.draw_text(
+                "Calculating...", 30, (255, 255, 255), 30, 50)
+            pygame.display.update()
+            path, nr_sol = next(sol_node)
 
             if path == None:
+                pygame.draw.rect(WINDOW, (0, 0, 0),
+                                 (screen_width - 170, 50, 175, 40))
+                self.game_view.draw_text(
+                    "Done", 30, (255, 255, 255), 30, 50)
+                pygame.display.update()
                 break
+
             pygame.time.delay(60)
-            # TODO: ADD GENERATION NR
             already_moved = []
 
             for node in path:
@@ -108,7 +117,7 @@ class GameController:
 
                 if pygame.key.get_pressed()[pygame.K_q]:
                     return
-                
+
                 self.game_view.draw_maze()
                 self.game_model.set_block(node)
 
@@ -117,19 +126,23 @@ class GameController:
 
                 self.game_view.draw_block()
 
+                self.game_view.draw_text(
+                    "Best Gen: " + str(nr_sol), 30, (255, 255, 255), 30, 10)
+                self.game_view.draw_text(
+                    "Best Score: " + str(len(path)), 30, (255, 255, 255), 30, 30)
+
                 already_moved.append(node)
                 pygame.display.update()
 
-                pygame.time.delay(30)
+                pygame.time.delay(10)
 
         # wait for key press
         pygame.event.clear()
-        ## TODO: DISPLAY A MESSAGE TO SAY THAT THE GENERATION IS THE LAST
+        # TODO: DISPLAY A MESSAGE TO SAY THAT THE GENERATION IS THE LAST
         while True:
             event = pygame.event.wait()
             if event.type == pygame.KEYDOWN:
                 break
-
 
     def ia_solver_start(self, algo):
 
@@ -138,18 +151,15 @@ class GameController:
             sol_node = algo[1]()
 
             gen = isinstance(sol_node, types.GeneratorType)
-            
+
             if gen:
                 self.ga_solver_show(sol_node)
                 return
 
-            path =  sol_node.get_path()
-
-
-
+            path = sol_node.get_path()
 
             already_moved = []
-            
+
             for node in path:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -170,12 +180,12 @@ class GameController:
                 pygame.display.update()
 
                 pygame.time.delay(60)
-            
+
             # wait for key press
             pygame.event.clear()
             while True:
                 event = pygame.event.wait()
                 if event.type == pygame.KEYDOWN:
                     break
-            
+
         return ia_solver_run

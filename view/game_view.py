@@ -42,7 +42,7 @@ class GameView:
             return BLACK
 
     def draw_maze(self):
-        
+
         for row in range(MATRIX_ROW):
             for col in range(MATRIX_COL):
                 # Get the tile position for the current cell
@@ -55,12 +55,13 @@ class GameView:
                     tile, (row * TILE_SIZE, col * TILE_SIZE))
 
     def draw_nr_moves(self):
-        font = pygame.font.SysFont('Arial Bold', 30)
-        nr_moves_str = "Moves: " + str(self.model.get_nr_moves)
-        nr_moves_text = font.render(
-            nr_moves_str, False, (255, 255, 255))
+        self.draw_text("Moves: " + str(self.model.get_nr_moves), 30, (255, 255, 255), 10, 40)
+
+    def draw_text(self, text, fontSize, color, x, y):
+        font = pygame.font.SysFont('Arial Bold', fontSize)
+        nr_moves_text = font.render(text, False, color)
         nr_moves_rect = nr_moves_text.get_rect()
-        nr_moves_rect.topright = (screen_width - 10, 40)
+        nr_moves_rect.topright = (screen_width - x, y)
         self.surface.blit(nr_moves_text, nr_moves_rect)
 
     @staticmethod

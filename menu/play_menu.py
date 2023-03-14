@@ -4,6 +4,7 @@ from model.game_model import *
 from model.sample_mazes import *
 from algorithms.genetic_algorithm import *
 
+
 class PlayGroundMenu:
 
     # algorithm = 0 ############################### NOTA::::::AQUI EM BAIXO TEM O GAME_MAP mas o mapa pode mudar, secalhar passar pelo x ?
@@ -31,17 +32,20 @@ class PlayGroundMenu:
                          self.initial_pos, goal_block_state, child_block_states, 200), iterative_deepening_search),
                      ('Greedy (manhattan)', lambda: greedy_search(self.initial_pos,
                       goal_block_state, child_block_states, manhattan_distance_heuristic), greedy_search),
-                     ('A* (manhattan)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, manhattan_distance_heuristic), a_star_search),
+                     ('A* (manhattan)', lambda:  a_star_search(self.initial_pos, goal_block_state,
+                      child_block_states, manhattan_distance_heuristic), a_star_search),
                      ('Greedy (chebyshev)', lambda: greedy_search(self.initial_pos,
                       goal_block_state, child_block_states, chebyshev_distance_heuristic), greedy_search),
-                     ('A* (chebyshev)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, chebyshev_distance_heuristic), a_star_search),
+                     ('A* (chebyshev)', lambda:  a_star_search(self.initial_pos, goal_block_state,
+                      child_block_states, chebyshev_distance_heuristic), a_star_search),
                      ('Greedy (euclidean)', lambda: greedy_search(self.initial_pos,
                       goal_block_state, child_block_states, euclidean_distance_heuristic), greedy_search),
-                     ('A* (euclidean)', lambda:  a_star_search(self.initial_pos, goal_block_state, child_block_states, euclidean_distance_heuristic), a_star_search),
-                     ('Genetic', lambda: genetic_algorithm(self.initial_pos,1000, 50, crossover, mutate, False), genetic_algorithm),
-                     ('Random DFS',lambda: random_dfs(self.initial_pos, goal_block_state, child_block_states),random_dfs)] 
+                     ('A* (euclidean)', lambda:  a_star_search(self.initial_pos, goal_block_state,
+                      child_block_states, euclidean_distance_heuristic), a_star_search),
+                     ('Genetic', lambda: genetic_algorithm(self.initial_pos,
+                      1000, 50, crossover, mutate, False), genetic_algorithm),
+                     ('Random DFS', lambda: random_dfs(self.initial_pos, goal_block_state, child_block_states), random_dfs)]
 
-                    
         self.__selections()
 
     @property
