@@ -137,16 +137,17 @@ def genetic_algorithm(init,num_iterations, population_size, crossover_func, muta
     generation_no = 0
     
     # print(f"Initial solution: {best_solution}, score: {best_score}")
+    yield best_solution, best_solution_generation # Yield the best solution found so far
     
     while(num_iterations > 0):
         new_population = []
         generation_no += 1
-        yield best_solution, best_solution_generation # Yield the best solution found so far
 
         # Restores the population to its original solution ... to find optimal generational solutions
-        best_solution = population[0] # Initial solution
-        best_score = evaluate_solution(population[0]) 
+        #best_solution = population[0] # Initial solution
+        #best_score = evaluate_solution(population[0]) 
         # Selection
+        print("Pensando... "+str(generation_no))
         for i in range(0, population_size):
             tournment_winner_sol = tournament_select(population, 3)
             roulette_winner_sol = roulette_select(population)
@@ -171,6 +172,7 @@ def genetic_algorithm(init,num_iterations, population_size, crossover_func, muta
             best_solution = greatest_fit
             best_score = greatest_fit_score
             best_solution_generation = generation_no
+            yield best_solution, best_solution_generation # Yield the best solution found so far
             if log:
                 print(f"\nGeneration: {generation_no }")
                 print(f"Solution: {best_solution}, score: {best_score}")
@@ -179,6 +181,7 @@ def genetic_algorithm(init,num_iterations, population_size, crossover_func, muta
         else:
             num_iterations -= 1
     while True:
+        print("YIELDED NONE")
         yield None, None
 
 
