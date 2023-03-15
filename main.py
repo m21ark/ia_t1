@@ -5,6 +5,7 @@ from menu.main_menu import MainMenu
 from view.game_view import GameView
 from model.game_model import *
 from algorithms.genetic_algorithm import *
+import sys
 
 def main():
 
@@ -31,4 +32,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    print(sys.argv)
+    if '--statistics' in sys.argv:
+        from algorithms.statistics import *
+        functions = [depth, breadth, greedy, a_star, greedy_chebyshev, a_star_chebyshev, greedy_euclidean, a_star_euclidean, genetic, dfs_random]
+        mazes = [x[1] for x in game_maps]
+        solver = MazeSolver(functions, mazes)
+        solver.execute_functions()
+    else:
+        main()
