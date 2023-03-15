@@ -3,6 +3,7 @@ from algorithms.block_state import *
 from model.game_model import GameModel
 import math
 
+
 class TreeNode:
     def __init__(self, state, parent=None):
         self.state = state
@@ -42,7 +43,7 @@ def breadth_first_search(initial_state, goal_state_func, operators_func):
     visited = set()
     while queue:
         node = queue.popleft()   # get first element in the queue
-        
+
         if node.state in visited:
             continue
 
@@ -62,8 +63,6 @@ def breadth_first_search(initial_state, goal_state_func, operators_func):
             queue.append(state_node)
 
     return None
-
-
 
 
 def depth_first_search(initial_state, goal_state_func, operators_func):
@@ -260,7 +259,9 @@ def moveRight(self):
         return None
     return new_st
 
-def manhattan_distance_heuristic(node): # TODO: uma heuristica que beneficie numeros pares de jogadas, tem de haver duas jogadas para ficar de pé ... atenção à depht != nr_jogadas 
+
+# TODO: uma heuristica que beneficie numeros pares de jogadas, tem de haver duas jogadas para ficar de pé ... atenção à depht != nr_jogadas
+def manhattan_distance_heuristic(node):
     end_x, end_y = GameModel.GOAL
     return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y)
 
@@ -282,12 +283,12 @@ def hint_call(alg, blockSt: BlockState):
         'BFS': lambda: breadth_first_search(blockSt, goal_block_state, child_block_states),
         'Iterative deepening': lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
         'Greedy (manhattan)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
-        'A* (manhattan)' : lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
+        'A* (manhattan)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
         'Greedy (chebyshev)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
         'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'Genetic' : lambda: genetic_algorithm(blockSt,1000, 50, crossover, mutate, False), 
+        'Genetic': lambda: genetic_algorithm(blockSt, 1000, 50, crossover, mutate, False),
         'Random DFS': lambda: random_dfs(blockSt, goal_block_state, child_block_states),
     }
 
