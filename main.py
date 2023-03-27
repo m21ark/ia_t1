@@ -32,7 +32,6 @@ def main():
 
 
 if __name__ == "__main__":
-    print(sys.argv)
     if '--statistics' in sys.argv:
         from algorithms.statistics import *
         functions = [depth, breadth, greedy, a_star, greedy_chebyshev, a_star_chebyshev, greedy_euclidean, a_star_euclidean, genetic, dfs_random]
@@ -41,3 +40,4 @@ if __name__ == "__main__":
         solver.execute_functions()
     else:
         main()
+        
