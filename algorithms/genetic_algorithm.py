@@ -186,7 +186,9 @@ def genetic_algorithm(init, num_iterations, population_size, crossover_func, mut
             new_population.append(child_1)
             new_population.append(child_2)
 
-        population = new_population
+        grandparent_population = random.sample(population, 20)
+
+        population = new_population + grandparent_population
         # REPLACE LEAST FIT ????
         # Checking the greatest fit among the current population
         greatest_fit, greatest_fit_score = get_greatest_fit(population)

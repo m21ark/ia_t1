@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import time
-import xlsxwriter
 from model.sample_mazes import *
 from algorithms.block_state import BlockState
 from algorithms.algorithms import *

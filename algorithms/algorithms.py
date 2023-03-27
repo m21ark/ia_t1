@@ -288,7 +288,7 @@ def hint_call(alg, blockSt: BlockState):
         'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
         'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'Genetic': lambda: genetic_algorithm(blockSt, 1000, 50, crossover, mutate, False),
+        'Genetic': lambda: genetic_algxorithm(blockSt, 1000, 50, crossover, mutate, False),
         'Random DFS': lambda: random_dfs(blockSt, goal_block_state, child_block_states),
     }
 
