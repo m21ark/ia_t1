@@ -135,7 +135,6 @@ def mutate(solution):
 
     return sol
 
-# TODO: DOESNT WORK ON HELP H
 def genetic_algorithm(init, num_iterations, population_size, crossover_func, mutation_func, log=False):
     population = generate_population(init, population_size)
 
@@ -177,16 +176,15 @@ def genetic_algorithm(init, num_iterations, population_size, crossover_func, mut
             child_1, child_2 = crossover_func(
                 tournment_winner_sol, roulette_winner_sol)
 
-            # Mutation ... TODO... add random probability
-            if (np.random.rand() < 0.10):
+            if (np.random.rand() < 0.15):
                 child_1 = mutation_func(child_1)
-            if (np.random.rand() < 0.10):
+            if (np.random.rand() < 0.15):
                 child_2 = mutation_func(child_2)
 
             new_population.append(child_1)
             new_population.append(child_2)
 
-        grandparent_population = random.sample(population, 20)
+        grandparent_population = random.sample(population, 20) 
 
         population = new_population + grandparent_population
         # REPLACE LEAST FIT ????

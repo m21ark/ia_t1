@@ -46,8 +46,9 @@ class GameController:
 
                 if (pygame.key.get_pressed()[pygame.K_h] and not already_moved and not hint_move):
                     sol_node = hint_call(algo[0], self.game_model.block)()
-                    hint_move = sol_node.get_path()[1]
-                    already_moved = True
+                    if sol_node is not None:
+                        hint_move = sol_node.get_path()[1]
+                        already_moved = True
 
                 if hint_move:
                     self.game_view.draw_node(hint_move)
@@ -138,7 +139,7 @@ class GameController:
 
         # wait for key press
         pygame.event.clear()
-        # TODO: DISPLAY A MESSAGE TO SAY THAT THE GENERATION IS THE LAST
+
         while True:
             event = pygame.event.wait()
             if event.type == pygame.KEYDOWN:

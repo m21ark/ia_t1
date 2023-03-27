@@ -307,18 +307,18 @@ def hint_call(alg, blockSt: BlockState):
         'A* W=1.5 (manhattan)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
         'Greedy (chebyshev)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
-        'A* W=1.5  (chebyshev)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
+        'A* W=1.5 (chebyshev)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
         'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'A* (euclidean)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'Genetic': lambda: genetic_algorithm(blockSt, 1000, 50, crossover, mutate, False),
+        'A* W=1.5 (euclidean)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
+        'Genetic': lambda: None,
         'Random DFS': lambda: random_dfs(blockSt, goal_block_state, child_block_states),
     }
 
     return hint_call.dic[alg]
 
 
-def goal_block_state(self):  # TODO: a mesma questão de ser or ou and
+def goal_block_state(self):
     return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
 
 
