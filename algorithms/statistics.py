@@ -78,6 +78,12 @@ def a_star(maze):
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
 
+def a_w_m_star(maze):
+    x, y = GameModel.find_start_end_nodes(maze)
+    blockSt = BlockState(x, y, x, y, maze)
+    return a_star_weighted_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
+
+
 def greedy_chebyshev(maze):
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
@@ -88,6 +94,11 @@ def a_star_chebyshev(maze):
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic)
 
+def a_star_w_chebyshev(maze):
+    x, y = GameModel.find_start_end_nodes(maze)
+    blockSt = BlockState(x, y, x, y, maze)
+    return a_star_weighted_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic)
+
 def greedy_euclidean(maze):
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
@@ -97,6 +108,11 @@ def a_star_euclidean(maze):
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
+
+def a_star_w_euclidean(maze):
+    x, y = GameModel.find_start_end_nodes(maze)
+    blockSt = BlockState(x, y, x, y, maze)
+    return a_star_weighted_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
 
 def genetic(maze):
     x, y = GameModel.find_start_end_nodes(maze)
