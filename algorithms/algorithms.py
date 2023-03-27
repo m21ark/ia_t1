@@ -160,6 +160,27 @@ def a_star_search(initial_state, goal_state_func, operators_func, heuristic):
     return None
 
 
+def a_star_weighted_search(initial_state, goal_state_func, operators_func, heuristic):
+    # your code here
+
+    root = TreeNode(initial_state)
+    queue = [root]
+    visited = set()
+    while queue:
+        node = queue.pop(0)
+        if node.state in visited:
+            continue
+
+        visited.add(node.state)
+
+        if goal_state_func(node.state):
+            return node
+
+        queue.extend([TreeNode(state, node)
+                     for state in operators_func(node.state)])
+        queue.sort(key=lambda node: node.depth + 1.5*heuristic(node))
+    return None
+
 def moveUp(self):
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
@@ -260,20 +281,19 @@ def moveRight(self):
     return new_st
 
 
-# TODO: uma heuristica que beneficie numeros pares de jogadas, tem de haver duas jogadas para ficar de pé ... atenção à depht != nr_jogadas
 def manhattan_distance_heuristic(node):
     end_x, end_y = GameModel.GOAL
-    return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y)
+    return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y) / 2.0 # /2.0 so that the heuristic is admissible and consistent
 
 
 def chebyshev_distance_heuristic(node):
     end_x, end_y = GameModel.GOAL
-    return max(abs(min(node.state.x, node.state.x2) - end_x), abs(min(node.state.y, node.state.y2) - end_y))
+    return max(abs(min(node.state.x, node.state.x2) - end_x), abs(min(node.state.y, node.state.y2) - end_y)) / 2.0 # /2.0 so that the heuristic is admissible and consistent
 
 
 def euclidean_distance_heuristic(node):
     end_x, end_y = GameModel.GOAL
-    return math.sqrt((min(node.state.x, node.state.x2) - end_x) ** 2 + (min(node.state.y, node.state.y2) - end_y) ** 2)
+    return math.sqrt((min(node.state.x, node.state.x2) - end_x) ** 2 + (min(node.state.y, node.state.y2) - end_y) ** 2) / 2.0 # /2.0 so that the heuristic is admissible and consistent
 
 
 def hint_call(alg, blockSt: BlockState):
@@ -284,11 +304,14 @@ def hint_call(alg, blockSt: BlockState):
         'Iterative deepening': lambda:  iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200),
         'Greedy (manhattan)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
         'A* (manhattan)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
+        'A* W=1.5 (manhattan)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic),
         'Greedy (chebyshev)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'A* (chebyshev)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
+        'A* W=1.5  (chebyshev)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic),
         'Greedy (euclidean)': lambda: greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
         'A* (euclidean)': lambda: a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
-        'Genetic': lambda: genetic_algxorithm(blockSt, 1000, 50, crossover, mutate, False),
+        'A* (euclidean)': lambda: a_star_weighted_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic),
+        'Genetic': lambda: genetic_algorithm(blockSt, 1000, 50, crossover, mutate, False),
         'Random DFS': lambda: random_dfs(blockSt, goal_block_state, child_block_states),
     }
 
