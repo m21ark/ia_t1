@@ -1,8 +1,8 @@
-# AI Project 1: Labyrinth Search
+# AI Project 1: Maze Search
 
 ## Overview
 
-This project is an implementation of search algorithms for a labyrinth game. The game is implemented using the `pygame` library.
+This project is an implementation of search algorithms for a maze game. The game is implemented using the `pygame` library.
 
 The code was developed in Python 3.10.
 
