@@ -2,8 +2,17 @@ import pygame_menu
 
 
 class HelpMenu:
+    """Help Menu class"""
 
     def __init__(self, window):
+        """
+        New Pygame menu with the specified window dimensions, title, and theme
+        
+        Parameters:
+        window: tuple of integers representing the window dimensions
+
+        """
+
         self.__help_menu = pygame_menu.Menu(
             height=window[1],
             width=window[0],
@@ -11,6 +20,8 @@ class HelpMenu:
             theme=pygame_menu.themes.THEME_DARK
             
         )
+
+        """Add labels to the menu to display game instructions"""
         self.__help_menu.add.label('Game Rules:', font_size=33)
         self.__help_menu.add.label('')
         self.__help_menu.add.label('1. Your goal is to place the block vertically in the exit', wordwrap=True, font_size=25)
@@ -26,8 +37,13 @@ class HelpMenu:
 
     @property
     def help_menu(self):
+        """getter for the pygame menu object"""
+
         return self.__help_menu
 
+
     def __back(self):
+        """method for returning to the previous menu"""
+        
         print('Back')
         

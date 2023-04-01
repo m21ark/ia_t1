@@ -7,11 +7,15 @@ from algorithms.genetic_algorithm import *
 
 paths_n = 0
 def random_end(self):
+    """function to check if the random DFS has generated 200 paths"""
+
     global paths_n
     paths_n += 1
     return paths_n == 200
 
 def generate_random_maze():
+    """function to generate a random maze using random DFS algorithm"""
+
     global paths_n
     paths_n = 0
     x, y = GameModel.find_start_end_nodes(maze_1)
@@ -34,8 +38,14 @@ def generate_random_maze():
 
 class PlayGroundMenu:
 
-    # algorithm = 0 ############################### NOTA::::::AQUI EM BAIXO TEM O GAME_MAP mas o mapa pode mudar, secalhar passar pelo x ?
     def __init__(self, window):
+        """
+        Create a Pygame menu object
+
+        Parameters:
+        window: tuple of integers representing the window dimensions
+        """
+
         self.__playground_menu = pygame_menu.Menu(
             height=window[1],
             width=window[0],
@@ -88,6 +98,13 @@ class PlayGroundMenu:
 
 
     def __on_maze_change(self, value, extra):
+        """
+        function to change the maze when the user selects a different one
+        
+        Parameters:
+        value: tuple of strings representing the maze name and the maze
+        extra: extra parameter
+        """
         self.maze = value[1]
 
 
@@ -108,6 +125,14 @@ class PlayGroundMenu:
             game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
 
     def __on_algorithm_change(self, value, extra, extra_):
+        """ Update the algorithm selection
+        
+        Parameters:
+        value: tuple of the selected algorithm
+        extra: extra parameter
+        extra_: extra parameter
+        """
+
         self.algorithm = value[1]
         self.play.update_callback(GameController(
             GameModel(game_maps[self.maze][1]), WINDOW).start(self.algs[self.algorithm]))
@@ -115,6 +140,8 @@ class PlayGroundMenu:
             game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
 
     def __selections(self):
+        """ Create the menu selections"""
+
         self.maze_sel = self.__playground_menu.add.selector(
             'Maze',
             game_maps,
