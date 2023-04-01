@@ -1,6 +1,11 @@
 from math import sqrt
 import pygame
 
+'''
+This file contains the constants used in the game.
+'''
+
+# Define the nodes codes
 EMPTY_NODE = 0
 START_NODE = 1
 END_NODE = 2
@@ -10,11 +15,12 @@ PLAYER_NODE_B = 5
 BLOCK_NODE = 6
 KILLER_NODE = 7
 
-
+# Define the maze size
 TILE_SIZE = 28
 ROW = 30
 COL = 30
 
+# Define the tileset
 tileset_image = pygame.image.load('assets/tileset.png')
 tile_positions = [(1, 1),  # EmptyNode
                   (15, 7),  # StartNode

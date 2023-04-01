@@ -8,6 +8,9 @@ from algorithms.genetic_algorithm import *
 import sys
 
 def main():
+    '''
+    This function is the main function of the program.
+    '''
     
     pygame.init()
 
@@ -32,12 +35,18 @@ def main():
 
 
 if __name__ == "__main__":
+    '''
+    This function is the main function of the program.
+    '''
+
     if '--statistics' in sys.argv:
+        # This is used to generate the statistics for the algorithms.
         from algorithms.statistics import *
         functions = [depth, breadth, greedy, a_star, a_w_m_star, greedy_chebyshev, a_star_chebyshev, a_star_w_chebyshev, greedy_euclidean, a_star_euclidean, a_star_w_euclidean, genetic, dfs_random]
         mazes = [x[1] for x in game_maps]
         solver = MazeSolver(functions, mazes)
         solver.execute_functions()
     else:
+        # This is used to run the game.
         main()
         
