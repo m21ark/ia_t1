@@ -7,12 +7,38 @@ import types
 
 
 class GameController:
+    """
+    Represents the controller of the game.
+    It is responsible for the game logic and the interaction between the user and the game.
+
+    Attributes:
+        game_model (GameModel): The model of the game.
+        surface (WINDOW): The surface of the game, in this case pygame surface windows.
+    """
     def __init__(self, game_model: GameModel, surface):
+        """
+        Parameters
+        ----------
+        game_model : GameModel
+            The model of the game.
+        surface : WINDOW variable
+            The surface of the game, in this case pygame surface windows.
+
+        """
         self.game_model = game_model
         self.surface = surface
         self.game_view = GameView(surface, game_model)
 
     def start(self, algo):
+        """
+        Returns a function that starts the game for the individual player.
+
+        Parameters
+        ----------
+        algo : tuple
+            The algorithm to be used in the hints game.
+
+        """
 
         def real_start():
 
@@ -93,6 +119,14 @@ class GameController:
         return real_start
 
     def ga_solver_show(self, sol_node):
+        """
+        Runs the genetic algorithm solver and evolution of the solution.
+
+        Parameters
+        ----------
+        sol_node : generator
+            The generator that yields the next solution and the generation number.
+        """
         curr_gen = 0
         while True:
             self.game_view.draw_text(
@@ -146,6 +180,14 @@ class GameController:
                 break
 
     def ia_solver_start(self, algo):
+        """
+        Returns a function that starts the game for the individual player.
+        
+        Parameters
+        ----------
+        algo : tuple
+            The algorithm to be used in the ia game.
+        """
 
         def ia_solver_run():
 

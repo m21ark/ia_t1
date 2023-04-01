@@ -70,9 +70,17 @@ class MazeSolver:
                 'values':     ['Memory Usage', 1, col_num, len(self.mazes), col_num],
             })
 
+        # Set the x-axis labels
+        time_chart.set_x_axis({'name': 'Mazes'})
+        memory_chart.set_x_axis({'name': 'Mazes'})
+
+        # Set the y-axis labels
+        time_chart.set_y_axis({'name': 'Time (s)'})
+        memory_chart.set_y_axis({'name': 'Memory (bytes)'})
+
         # Insert the charts into the worksheets.
-        time_sheet.insert_chart('D2', time_chart)
-        memory_sheet.insert_chart('D2', memory_chart)
+        time_sheet.insert_chart('D8', time_chart)
+        memory_sheet.insert_chart('D8', memory_chart)
 
         # Close the Pandas Excel writer and output the Excel file.
         writer.save()
