@@ -9,11 +9,25 @@ from algorithms.genetic_algorithm import *
 from model.game_model import GameModel
 
 class MazeSolver:
+    '''
+    This class is used to solve a maze.
+    '''
+
     def __init__(self, functions, mazes):
+        '''
+        :param functions: the functions to be used to solve the maze
+        :param mazes: the mazes to be solved
+        '''
+
         self.functions = functions
         self.mazes = mazes
 
     def execute_functions(self):
+        '''
+        This function executes the functions and returns the execution time and memory usage.
+        :return: the execution time and memory usage
+        '''
+
         time_results = []
         memory_results = []
         for function in self.functions:
@@ -87,72 +101,156 @@ class MazeSolver:
 
 # Example usage
 def depth(maze):
+    '''
+    This function solves the maze using depth first search.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return depth_first_search(blockSt, goal_block_state, child_block_states)
 
 def breadth(maze):
+    '''
+    This function solves the maze using breadth first search.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return breadth_first_search(blockSt, goal_block_state, child_block_states)
 
 def iterative(maze):
+    '''
+    This function solves the maze using iterative deepening search.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return iterative_deepening_search(blockSt, goal_block_state, child_block_states, 200)
 
 def greedy(maze):
+    '''
+    This function solves the maze using greedy search.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
 
 def a_star(maze):
+    '''
+    This function solves the maze using A* search.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
 
 def a_w_m_star(maze):
+    '''
+    This function solves the maze using A* search with weighted manhattan distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_weighted_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
 
 
 def greedy_chebyshev(maze):
+    '''
+    This function solves the maze using greedy search with chebyshev distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return greedy_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic)
 
 def a_star_chebyshev(maze):
+    '''
+    This function solves the maze using A* search with chebyshev distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic)
 
 def a_star_w_chebyshev(maze):
+    '''
+    This function solves the maze using A* search with weighted chebyshev distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_weighted_search(blockSt, goal_block_state, child_block_states, chebyshev_distance_heuristic)
 
 def greedy_euclidean(maze):
+    '''
+    This function solves the maze using greedy search with euclidean distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return greedy_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
 
 def a_star_euclidean(maze):
+    '''
+    This function solves the maze using A* search with euclidean distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
 
 def a_star_w_euclidean(maze):
+    '''
+    This function solves the maze using A* search with weighted euclidean distance.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_weighted_search(blockSt, goal_block_state, child_block_states, euclidean_distance_heuristic)
 
 def genetic(maze):
+    '''
+    This function solves the maze using genetic algorithm.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return genetic_algorithm(blockSt,1000, 50, crossover, mutate, False)
 
 def dfs_random(maze):
+    '''
+    This function solves the maze using random dfs.
+    :param maze: the maze to be solved
+    :return: the solution
+    '''
+        
     x, y = GameModel.find_start_end_nodes(maze)
     blockSt = BlockState(x, y, x, y, maze)
     return random_dfs(blockSt, goal_block_state, child_block_states)

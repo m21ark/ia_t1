@@ -5,7 +5,15 @@ import math
 
 
 class TreeNode:
+    '''
+    A node in the search tree.
+    '''
+
     def __init__(self, state, parent=None):
+        '''
+        state: the state of the node
+        parent: the parent node of this node
+        '''
         self.state = state
         self.parent = parent
         self.children = []
@@ -15,10 +23,16 @@ class TreeNode:
             self.depth = self.parent.depth + 1
 
     def add_child(self, child_node):
+        '''
+        Add a child node to the current node.
+        '''
         self.children.append(child_node)
         child_node.parent = self
 
     def get_path(self):
+        '''
+        Get the path from the root node to the current node.
+        '''
         path = []
         node = self
         while node is not None:
@@ -28,15 +42,28 @@ class TreeNode:
         return path
 
     def __eq__(self, other):
+        '''
+        Compare two nodes.
+        '''
         if isinstance(other, TreeNode):
             return self.state == other.state and self.depth == other.depth
         return False
 
     def __hash__(self):
+        '''
+        Hash the node.
+        '''
         return hash((self.state, self.depth))
 
 
 def breadth_first_search(initial_state, goal_state_func, operators_func):
+    '''
+    Breadth-first search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    '''
+
     root = TreeNode(initial_state)   # create the root node in the search tree
     queue = deque([root])   # initialize the queue to store the nodes
 
@@ -66,6 +93,12 @@ def breadth_first_search(initial_state, goal_state_func, operators_func):
 
 
 def depth_first_search(initial_state, goal_state_func, operators_func):
+    '''
+    Depth-first search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    '''
     root = TreeNode(initial_state)
     stack = [root]
 
@@ -87,6 +120,13 @@ def depth_first_search(initial_state, goal_state_func, operators_func):
 
 
 def depth_limited_search(initial_state, goal_state_func, operators_func, depth_limit):
+    '''
+    Depth-limited search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    depth_limit: the depth limit of the search
+    '''
     root = TreeNode(initial_state)
     stack = [root]
     visited = set()
@@ -107,6 +147,12 @@ def depth_limited_search(initial_state, goal_state_func, operators_func, depth_l
 
 
 def iterative_deepening_search(initial_state, goal_state_func, operators_func, depth_limit):
+    '''
+    Iterative deepening search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    '''
 
     for depth in range(depth_limit):
         goal = depth_limited_search(
@@ -117,7 +163,13 @@ def iterative_deepening_search(initial_state, goal_state_func, operators_func, d
 
 
 def greedy_search(initial_state, goal_state_func, operators_func, heuristic_func):
-    # your code here
+    '''
+    Greedy search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    heuristic_func: a function that takes a node and returns the heuristic value of the node
+    '''
     root = TreeNode(initial_state)
     queue = [root]
     visited = set()
@@ -133,13 +185,19 @@ def greedy_search(initial_state, goal_state_func, operators_func, heuristic_func
 
         queue.extend([TreeNode(state, node)
                      for state in operators_func(node.state)])
-        # IS THIS THE BEST SOLUTION IN TERMS OF TIME COMPLEXITY
+
         queue.sort(key=lambda node: heuristic_func(node))
     return None
 
 
 def a_star_search(initial_state, goal_state_func, operators_func, heuristic):
-    # your code here
+    '''
+    A* search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    heuristic: a function that takes a node and returns the heuristic value of the node
+    '''
 
     root = TreeNode(initial_state)
     queue = [root]
@@ -161,7 +219,13 @@ def a_star_search(initial_state, goal_state_func, operators_func, heuristic):
 
 
 def a_star_weighted_search(initial_state, goal_state_func, operators_func, heuristic):
-    # your code here
+    '''
+    A* search algorithm.
+    initial_state: the initial state of the search
+    goal_state_func: a function that takes a state and returns True if the state is a goal state
+    operators_func: a function that takes a state and returns a list of next states
+    heuristic: a function that takes a node and returns the heuristic value of the node
+    '''
 
     root = TreeNode(initial_state)
     queue = [root]
@@ -181,7 +245,13 @@ def a_star_weighted_search(initial_state, goal_state_func, operators_func, heuri
         queue.sort(key=lambda node: node.depth + 1.5*heuristic(node))
     return None
 
+
 def moveUp(self):
+    '''
+    Move the block up.
+    Returns the new state if the move is valid, otherwise returns None.
+    '''
+
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
@@ -207,6 +277,11 @@ def moveUp(self):
 
 
 def moveDown(self):
+    '''
+    Move the block down.
+    Returns the new state if the move is valid, otherwise returns None.
+    '''
+
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
@@ -232,6 +307,11 @@ def moveDown(self):
 
 
 def moveLeft(self):
+    '''
+    Move the block left.
+    Returns the new state if the move is valid, otherwise returns None.
+    '''
+
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
@@ -257,6 +337,11 @@ def moveLeft(self):
 
 
 def moveRight(self):
+    '''
+    Move the block right.
+    Returns the new state if the move is valid, otherwise returns None.
+    '''
+
     # save current position
     x, y, x2, y2 = self.x, self.y, self.x2, self.y2
     if (self.isStanding()):
@@ -282,21 +367,44 @@ def moveRight(self):
 
 
 def manhattan_distance_heuristic(node):
+    '''
+    Manhattan distance heuristic.
+    node: a node in the search tree
+    '''
+
     end_x, end_y = GameModel.GOAL
-    return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y) / 2.0 # /2.0 so that the heuristic is admissible and consistent
+    # /2.0 so that the heuristic is admissible and consistent
+    return abs(min(node.state.x, node.state.x2) - end_x) + abs(min(node.state.y, node.state.y2) - end_y) / 2.0
 
 
 def chebyshev_distance_heuristic(node):
+    '''
+    Chebyshev distance heuristic.
+    node: a node in the search tree
+    '''
+
     end_x, end_y = GameModel.GOAL
-    return max(abs(min(node.state.x, node.state.x2) - end_x), abs(min(node.state.y, node.state.y2) - end_y)) / 2.0 # /2.0 so that the heuristic is admissible and consistent
+    # /2.0 so that the heuristic is admissible and consistent
+    return max(abs(min(node.state.x, node.state.x2) - end_x), abs(min(node.state.y, node.state.y2) - end_y)) / 2.0
 
 
 def euclidean_distance_heuristic(node):
+    '''
+    Euclidean distance heuristic.
+    node: a node in the search tree
+    '''
+
     end_x, end_y = GameModel.GOAL
-    return math.sqrt((min(node.state.x, node.state.x2) - end_x) ** 2 + (min(node.state.y, node.state.y2) - end_y) ** 2) / 2.0 # /2.0 so that the heuristic is admissible and consistent
+    # /2.0 so that the heuristic is admissible and consistent
+    return math.sqrt((min(node.state.x, node.state.x2) - end_x) ** 2 + (min(node.state.y, node.state.y2) - end_y) ** 2) / 2.0
 
 
 def hint_call(alg, blockSt: BlockState):
+    ''' 
+    This function is called when the user clicks on the hint button.
+    It calls the algorithm that the user chose and returns the next move.
+    '''
+
     from algorithms.genetic_algorithm import genetic_algorithm, crossover, mutate, random_dfs
     hint_call.dic = {
         'DFS': lambda: depth_first_search(blockSt, goal_block_state, child_block_states),
@@ -319,8 +427,15 @@ def hint_call(alg, blockSt: BlockState):
 
 
 def goal_block_state(self):
+    '''
+    Returns True if the block is in the goal state.
+    '''
+
     return self.maze[self.x + self.y * MATRIX_COL] == END_NODE or self.maze[self.x2 + self.y2 * MATRIX_COL] == END_NODE
 
 
 def child_block_states(state):
+    '''
+    Returns a list of all possible child states.
+    '''
     return [x for x in [moveUp(state), moveDown(state), moveLeft(state), moveRight(state)] if x is not None]
