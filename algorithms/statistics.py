@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import time
+import tracemalloc
 from model.sample_mazes import *
 from algorithms.block_state import BlockState
 from algorithms.algorithms import *
@@ -13,41 +14,65 @@ class MazeSolver:
         self.mazes = mazes
 
     def execute_functions(self):
-        results = []
+        time_results = []
+        memory_results = []
         for function in self.functions:
-            func_results = []
+            time_func_results = []
+            memory_func_results = []
             for maze in self.mazes:
+                tracemalloc.start()  # start tracing memory allocations
                 start_time = time.time()
                 function(maze)
                 end_time = time.time()
                 exec_time = end_time - start_time
-                func_results.append(exec_time)
-            results.append(func_results)
-        df = pd.DataFrame(results).T
-        df.columns = [function.__name__ for function in self.functions]
-        df.index = ['Maze {}'.format(i+1) for i in range(len(self.mazes))]
+                current, peak = tracemalloc.get_traced_memory()  # get memory usage
+                tracemalloc.stop()  # stop tracing memory allocations
+                time_func_results.append(exec_time)
+                memory_func_results.append(peak)
+            time_results.append(time_func_results)
+            memory_results.append(memory_func_results)
+
+        time_df = pd.DataFrame(time_results).T
+        time_df.columns = [function.__name__ for function in self.functions]
+        time_df.index = ['Maze {}'.format(i+1) for i in range(len(self.mazes))]
+
+        memory_df = pd.DataFrame(memory_results).T
+        memory_df.columns = [function.__name__ for function in self.functions]
+        memory_df.index = ['Maze {}'.format(i+1) for i in range(len(self.mazes))]
 
         # Create a Pandas Excel writer using XlsxWriter as the engine.
         writer = pd.ExcelWriter('results.xlsx', engine='xlsxwriter')
-        df.to_excel(writer, sheet_name='Sheet1', index=True)
 
-        # Access the XlsxWriter workbook and worksheet objects from the dataframe.
+        # Write the time and memory dataframes to separate sheets.
+        time_df.to_excel(writer, sheet_name='Execution Time', index=True)
+        memory_df.to_excel(writer, sheet_name='Memory Usage', index=True)
+
+        # Access the XlsxWriter workbook and worksheet objects from the dataframes.
         workbook  = writer.book
-        worksheet = writer.sheets['Sheet1']
+        time_sheet = writer.sheets['Execution Time']
+        memory_sheet = writer.sheets['Memory Usage']
 
-        # Create a chart object.
-        chart = workbook.add_chart({'type': 'line'})
-
-        # Configure the series of the chart from the dataframe data.
+        # Create a chart object for execution time.
+        time_chart = workbook.add_chart({'type': 'line'})
         for col_num in range(1, len(self.functions)+1):
-            chart.add_series({
-                'name':       ['Sheet1', 0, col_num],
-                'categories': ['Sheet1', 1, 0, len(self.mazes), 0],
-                'values':     ['Sheet1', 1, col_num, len(self.mazes), col_num],
+            time_chart.add_series({
+                'name':       ['Execution Time', 0, col_num],
+                'categories': ['Execution Time', 1, 0, len(self.mazes), 0],
+                'values':     ['Execution Time', 1, col_num, len(self.mazes), col_num],
             })
 
-        # Insert the chart into the worksheet.
-        worksheet.insert_chart('D2', chart)
+        # Create a chart object for memory usage.
+        memory_chart = workbook.add_chart({'type': 'line'})
+        for col_num in range(1, len(self.functions)+1):
+            memory_chart.add_series({
+                'name':       ['Memory Usage', 0, col_num],
+                'categories': ['Memory Usage', 1, 0, len(self.mazes), 0],
+                'values':     ['Memory Usage', 1, col_num, len(self.mazes), col_num],
+            })
+
+        # Insert the charts into the worksheets.
+        time_sheet.insert_chart('D2', time_chart)
+        memory_sheet.insert_chart('D2', memory_chart)
 
         # Close the Pandas Excel writer and output the Excel file.
         writer.save()
