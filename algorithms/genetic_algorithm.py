@@ -5,6 +5,14 @@ import random
 
 
 def random_dfs(initial_state, goal_state_func, operators_func):
+    '''
+    This function performs a random depth first search.
+    :param initial_state: the initial state of the search
+    :param goal_state_func: the goal state function
+    :param operators_func: the operators function
+    :return: the goal node or None if no goal node is found
+    '''
+
     root = TreeNode(initial_state)   # create the root node in the search tree
     stack = [root]   # initialize the queue to store the nodes
 
@@ -31,6 +39,12 @@ def random_dfs(initial_state, goal_state_func, operators_func):
 
 
 def crossover(solution_1, solution_2):
+    '''
+    This function performs a crossover between two solutions.
+    :param solution_1: the first solution
+    :param solution_2: the second solution
+    :return: the two children
+    '''
 
     intersection = set(solution_1).intersection(solution_2)
 
@@ -50,6 +64,11 @@ def crossover(solution_1, solution_2):
 
 
 def evaluate_solution(solution):
+    '''
+    This function evaluates a solution.
+    :param solution: the solution
+    :return: the evaluation of the solution
+    '''
 
     if goal_block_state(solution[-1]):
         return -len(solution)
@@ -58,6 +77,12 @@ def evaluate_solution(solution):
 
 
 def generate_random_solution(init):
+    '''
+    This function generates a random solution.
+    :param init: the initial state
+    :return: the random solution
+    '''
+
     st = init
     s = random_dfs(st, goal_block_state, child_block_states)
     solution = s.get_path()
@@ -65,6 +90,13 @@ def generate_random_solution(init):
 
 
 def generate_population(init, population_size):
+    '''
+    This function generates a population of solutions.
+    :param init: the initial state
+    :param population_size: the size of the population
+    :return: the population
+    '''
+
     solutions = []
     for i in range(population_size):
         solutions.append(generate_random_solution(init))
@@ -72,12 +104,23 @@ def generate_population(init, population_size):
 
 
 def print_population(population):
+    '''
+    This function prints a population.
+    :param population: the population
+    '''
+
     for i in range(len(population)):
         print(
             f"Solution {i}: {population[i]}, {evaluate_solution(population[i])}")
 
 
 def tournament_select(population, tournament_size):
+    '''
+    This function selects a solution from a population using tournament selection.
+    :param population: the population
+    :param tournament_size: the size of the tournament
+    :return: the selected solution
+    '''
 
     tournament = random.sample(population, tournament_size)
     best_solution = max(tournament, key=evaluate_solution)
@@ -86,6 +129,12 @@ def tournament_select(population, tournament_size):
 
 
 def get_greatest_fit(population):
+    '''
+    This function returns the best solution from a population.
+    :param population: the population
+    :return: the best solution
+    '''
+
     best_solution = population[0]
     best_score = evaluate_solution(population[0])
     for i in range(1, len(population)):
@@ -97,6 +146,12 @@ def get_greatest_fit(population):
 
 
 def replace_least_fittest(population, offspring):
+    '''
+    This function replaces the least fittest solution from a population with a new solution.
+    :param population: the population
+    :param offspring: the new solution
+    '''
+
     least_fittest_index = 0
     least_fittest_value = evaluate_solution(population[0])
     for i in range(1, len(population)):
@@ -108,8 +163,12 @@ def replace_least_fittest(population, offspring):
 
 
 def roulette_select(population):
+    '''
+    This function selects a solution from a population using roulette selection.
+    :param population: the population
+    :return: the selected solution
+    '''
 
-    # Your Code Here
     total_fitness = sum([evaluate_solution(solution)
                         for solution in population])
     pick = np.random.uniform(0, total_fitness)
@@ -123,6 +182,11 @@ def roulette_select(population):
 
 
 def mutate(solution):
+    '''
+    This function mutates a solution.
+    :param solution: the solution
+    :return: the mutated solution
+    '''
 
     index = np.random.randint(0, len(solution))
 
@@ -135,7 +199,19 @@ def mutate(solution):
 
     return sol
 
+
 def genetic_algorithm(init, num_iterations, population_size, crossover_func, mutation_func, log=False):
+    '''
+    This function performs the genetic algorithm.
+    :param init: the initial state
+    :param num_iterations: the number of iterations
+    :param population_size: the size of the population
+    :param crossover_func: the crossover function
+    :param mutation_func: the mutation function
+    :param log: if True, the function will print the best solution found so far at each iteration
+    :return: the best solution found so far
+    '''
+
     population = generate_population(init, population_size)
 
     best_solution = population[0]  # Initial solution
@@ -184,10 +260,10 @@ def genetic_algorithm(init, num_iterations, population_size, crossover_func, mut
             new_population.append(child_1)
             new_population.append(child_2)
 
-        grandparent_population = random.sample(population, 20) 
+        grandparent_population = random.sample(population, 20)
 
         population = new_population + grandparent_population
-        # REPLACE LEAST FIT ????
+
         # Checking the greatest fit among the current population
         greatest_fit, greatest_fit_score = get_greatest_fit(population)
         if greatest_fit_score > best_score:
