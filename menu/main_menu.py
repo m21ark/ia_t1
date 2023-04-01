@@ -7,6 +7,12 @@ from model.sample_mazes import *
 class MainMenu:
 
     def __init__(self, window):
+        """
+        Constructor for the main menu class with specified window dimensions, title, and theme
+        
+        Parameters:
+        window: tuple of integers representing the window dimensions
+        """
         self.__main_menu = pygame_menu.Menu(
             height=window[1],
             width=window[0],
@@ -20,8 +26,10 @@ class MainMenu:
 
     @property
     def main_menu(self):
+        """getter for the pygame menu object"""
         return self.__main_menu
 
     @property
     def play_ground(self):
+        """getter for the play ground button object"""
         return self._play_ground
