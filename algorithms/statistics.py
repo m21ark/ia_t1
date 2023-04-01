@@ -144,7 +144,7 @@ def greedy(maze):
     blockSt = BlockState(x, y, x, y, maze)
     return greedy_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
 
-def a_star(maze):
+def a_manhattan_star(maze):
     '''
     This function solves the maze using A* search.
     :param maze: the maze to be solved
@@ -155,7 +155,7 @@ def a_star(maze):
     blockSt = BlockState(x, y, x, y, maze)
     return a_star_search(blockSt, goal_block_state, child_block_states, manhattan_distance_heuristic)
 
-def a_w_m_star(maze):
+def a_w_manhattan(maze):
     '''
     This function solves the maze using A* search with weighted manhattan distance.
     :param maze: the maze to be solved
