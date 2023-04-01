@@ -46,6 +46,14 @@ The code can be run from the command line using the following command:
 python3 main.py [--statistics]
 ```
 
+### Dependencies
+
+The dependencies needed to run the code are present in the `requirements.txt` file. They can be installed using the following command:
+
+```python
+pip3 install -r requirements.txt
+```
+
 ### Statistics
 
 The `--statistics` flag can be used to print statistics about the search. The statistics are outputed to a `results.xlsx` file.
