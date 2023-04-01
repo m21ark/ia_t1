@@ -8,7 +8,7 @@ from algorithms.genetic_algorithm import *
 import sys
 
 def main():
-
+    
     pygame.init()
 
     obj_main_menu = MainMenu(WINDOW_SIZE)

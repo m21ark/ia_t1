@@ -5,6 +5,33 @@ from model.sample_mazes import *
 from algorithms.genetic_algorithm import *
 
 
+paths_n = 0
+def random_end(self):
+    global paths_n
+    paths_n += 1
+    return paths_n == 200
+
+def generate_random_maze():
+    global paths_n
+    paths_n = 0
+    x, y = GameModel.find_start_end_nodes(maze_1)
+    blockSt = BlockState(x, y, x, y, maze_1)
+    r = random_dfs(blockSt, random_end, child_block_states)
+    maze = []
+    for i in range(30*30):
+        maze.append(0)
+    pat = r.get_path()
+    for i in pat:
+        maze[i.x + i.y * 30] = 3
+        maze[i.x2 + i.y2 * 30] = 3
+
+    maze[x + y * 30] = 1
+    if pat[-1].isStanding():
+        maze[pat[-1].x + pat[-1].y * 30] = 2
+    else:
+        maze[pat[-2].x + pat[-2].y * 30] = 2
+    return maze
+
 class PlayGroundMenu:
 
     # algorithm = 0 ############################### NOTA::::::AQUI EM BAIXO TEM O GAME_MAP mas o mapa pode mudar, secalhar passar pelo x ?
@@ -58,10 +85,19 @@ class PlayGroundMenu:
     def playground_menu(self):
         return self.__playground_menu
 
+
+
     def __on_maze_change(self, value, extra):
         self.maze = value[1]
 
-        GameModel.sel_maze = game_maps[self.maze][1]
+
+        if game_maps[self.maze][0] == 'Random Maze':
+            maze = generate_random_maze()
+            GameModel.sel_maze = maze
+            game_maps.pop()
+            game_maps.append(('Random Maze',maze))
+        else:
+            GameModel.sel_maze = game_maps[self.maze][1]
 
         x, y = GameModel.find_start_end_nodes(game_maps[self.maze][1])
         self.initial_pos = BlockState(x, y, x, y, game_maps[self.maze][1])
@@ -79,12 +115,11 @@ class PlayGroundMenu:
             game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))
 
     def __selections(self):
-        self.maze_sel = self.__playground_menu.add.dropselect(
+        self.maze_sel = self.__playground_menu.add.selector(
             'Maze',
-            game_maps,  # ilustrative
+            game_maps,
             onchange=self.__on_maze_change,
             default=self.maze,
-            selection_box_width=300,
         )
 
         self.__algorithm_sel = self.__playground_menu.add.dropselect(
@@ -96,6 +131,6 @@ class PlayGroundMenu:
         )
 
         self.ai = self.__playground_menu.add.button('AI-Solver', GameController(GameModel(
-            game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm]))  # ilustrative ... change map
+            game_maps[self.maze][1]), WINDOW).ia_solver_start(self.algs[self.algorithm])) 
         self.play = self.__playground_menu.add.button('Play', GameController(
             GameModel(game_maps[self.maze][1]), WINDOW).start(self.algs[self.algorithm]))
