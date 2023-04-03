@@ -62,6 +62,20 @@ The `--statistics` flag can be used to print statistics about the search. The st
 
 The output of the program is the game itself. The visualization is done using the `pygame` and `pygame_menu` libraries.
 
+## Gameplay
+
+### Choose maze and algorithm in the menu.
+<img src="https://user-images.githubusercontent.com/72521279/229518097-cbafe654-3f7d-49f0-ad3d-37d2da3c5a55.PNG" width="600">
+
+### Reach the end before the time runs out!
+<img src="https://user-images.githubusercontent.com/72521279/229518149-0e227421-cf6c-4441-96a7-8d982ddc0a23.PNG" width="600">
+
+### If you feel stuck, just press H and get a tip!
+<img src="https://user-images.githubusercontent.com/72521279/229518192-de2a5322-273a-46e1-9516-d79598cc019a.PNG" width="600">
+
+### Have a chosen search algorithm solve the maze for you.  
+<img src="https://user-images.githubusercontent.com/72521279/229518199-e2a3eaaf-bff5-4448-a61e-899309551f06.PNG" width="600">
+
 ## Group Members
 
 * Lia Vieira (up202005042@fe.up.pt)
